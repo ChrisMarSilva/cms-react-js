@@ -11,7 +11,9 @@ export default function App() {
   useEffect(() => {
     fetch("https://api.github.com/users/diego3g/repos")
       .then((response) => response.json())
-      .then((data) => { setRepos(data); });
+      //.then((data) => { setRepos(data); });
+      .then(data => setRepos(data.map(repo => ({ ...repos, name: repo.name }))));
+    // eslint-disable-next-line
   }, [])
 
   // useEffect(() => {
