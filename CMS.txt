@@ -1,5 +1,25 @@
 
 
+npm i -g npm@9.6.3
+npm i -g npm@latest
+
+npx create-react-app NomeProjeto
+
+npm i -g react-devtools
+npm i bootstrap reactstrap axios
+npm i react-query
+npm i react-query-devtools --save
+npm i styled-components
+npm i react-bootstrap bootstrap
+npm i react-router-dom
+npm i react-icons
+
+npm start
+npm run build
+npm cache clean --force
+npm audit fix --force
+
+
 
 ----------------------------------------------------
 
