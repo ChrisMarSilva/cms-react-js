@@ -37,10 +37,10 @@ export function Repos() {
         = useQuery<Repository[]>('repos', getRepositories, {
             refetchOnWindowFocus: false,
             staleTime: 1000 * 50, // 1Min
-    })
+        })
 
     async function getRepositories(): Promise<Repository[]> {
-        const url = "https://api.github.com/users/diego3g/repos";
+        const url = "https://api.github.com/users/diego3g/repos"
         const response = await axios.get<Repository[]>(url);
         return response.data;
     }

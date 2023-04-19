@@ -42,3 +42,16 @@ npm install
 npm run dev
 
 ----------------------------------------------------
+
+npm i -g yarn
+
+yarn 
+npm install
+
+yarn start:db
+
+npm audit fix --force
+yarn start
+npm start
+
+----------------------------------------------------
