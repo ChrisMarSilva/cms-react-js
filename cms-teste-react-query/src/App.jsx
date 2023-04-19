@@ -9,7 +9,7 @@ function App() {
     const url = "http://localhost:8080/todos"
     const response = await axios.get(url) //.then((response) => response.data)
     return response.data
-  })
+  }, { retry: 3, })
 
   const mutation = useMutation({
     mutationFn: ({ todoId, completed }) => axios.patch(`http://localhost:8080/todos/${todoId}`, { completed, }).then((response) => response.data),
