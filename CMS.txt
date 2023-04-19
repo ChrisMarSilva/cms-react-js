@@ -1,6 +1,10 @@
 
+----------------------------------------------------
+
 npm i -g npm@9.6.3
 npm i -g npm@latest
+
+----------------------------------------------------
 
 npx create-react-app NomeProjeto
 npx create-react-app NomeProjeto --template typescript
@@ -24,6 +28,17 @@ npm cache clean --force
 npm audit fix --force
 
 
-
 ----------------------------------------------------
 
+https://vitejs.dev/guide/features.html
+npm create vite@latest
+
+npm i --save axios
+npm i --save react-query
+npm i --save react-router-dom
+
+cd NomeProjeto
+npm install
+npm run dev
+
+----------------------------------------------------
