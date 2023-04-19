@@ -55,3 +55,14 @@ yarn start
 npm start
 
 ----------------------------------------------------
+
+npx create-react-app NomeProjeto
+npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npx tailwindcss init -p
+npm install flowbite flowbite-react
+
+npm run start
+
+
+----------------------------------------------------
