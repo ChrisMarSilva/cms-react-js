@@ -61,8 +61,17 @@ npm install -D tailwindcss postcss autoprefixer
 npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
 npx tailwindcss init -p
 npm install flowbite flowbite-react
-
 npm run start
 
+----------------------------------------------------
+
+npx create-next-app@latest
+npx create-next-app@latest --typescript
+npm install next react react-dom
+npm run dev
+
+npm i lint-fix
+npm run lint -- --fix
+npx eslint --fix .
 
 ----------------------------------------------------
