@@ -9,17 +9,24 @@ function App() {
     const url = "http://localhost:8080/todos"
     const response = await axios.get(url) //.then((response) => response.data)
     return response.data
-  }, { retry: 3, })
+  }, {
+    retry: 3,
+    refetchOnWindowFocus: true,
+    refetchInterval: 1000 * 5, /* 5 seg */
+    initialData: [],
+  })
 
   const mutation = useMutation({
-    mutationFn: ({ todoId, completed }) => axios.patch(`http://localhost:8080/todos/${todoId}`, { completed, }).then((response) => response.data),
-    onSuccess: data => { queryClient.setQueryData("todos", (currentData) => currentData.map((todo) => (todo.id === data.id ? data : todo))) },
+    mutationFn: ({ todoId, completed }) => axios.patch(`http://localhost:8080/todos/${todoId}`, { completed }).then((response) => response.data),
+    onSuccess: data => { queryClient.setQueryData("todos", currentData => currentData.map(todo => (todo.id === data.id ? data : todo))) },
     onError: error => console.error(error),
   })
 
-  if (isLoading) return <div className="loading">Carregando...</div>
+  if (isLoading)
+    return <div className="loading">Carregando...</div>
 
-  if (error) return <div className="loading">Algo deu errado!</div>
+  if (error)
+    return <div className="loading">Algo deu errado!</div>
 
   return (
     <div className="app-container">
