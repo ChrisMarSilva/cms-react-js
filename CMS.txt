@@ -1,8 +1,8 @@
 
 ----------------------------------------------------
 
-npm i -g npm@9.6.3
 npm i -g npm@latest
+npm i --global yarn
 
 ----------------------------------------------------
 
@@ -153,10 +153,13 @@ npm install eslint-plugin-import-helpers --save-dev
     }
 }
 
-npm i --save lodash
+npm i lodash --save 
 npm i moment --save 
 
 npm run dev
 
+----------------------------------------------------
+
 
 ----------------------------------------------------
+
