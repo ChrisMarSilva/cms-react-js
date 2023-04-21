@@ -6,9 +6,12 @@ npm i --global yarn
 
 ----------------------------------------------------
 
-npx create-react-app NomeProjeto
-npx create-react-app NomeProjeto --template typescript
 
+npm i lodash --save 
+npm i moment --save 
+npm i mongoose --save 
+npm i bcryptjs --save 
+npm i next-auth --save 
 npm i -g react-devtools
 npm i --save react-bootstrap bootstrap
 npm i --save bootstrap 
@@ -22,20 +25,20 @@ npm i --save react-icons
 npm i --save typescript @types/node @types/react @types/react-dom @types/jest
 npm install --save babel-plugin-relay
 
+----------------------------------------------------
+
+npx create-react-app NomeProjeto
+npx create-react-app NomeProjeto --template typescript
+
 npm start
 npm run build
 npm cache clean --force
 npm audit fix --force
 
-
 ----------------------------------------------------
 
 https://vitejs.dev/guide/features.html
 npm create vite@latest
-
-npm i --save axios
-npm i --save react-query
-npm i --save react-router-dom
 
 cd NomeProjeto
 npm install
@@ -153,13 +156,8 @@ npm install eslint-plugin-import-helpers --save-dev
     }
 }
 
-npm i lodash --save 
-npm i moment --save 
-
 npm run dev
 
 ----------------------------------------------------
 
-
-----------------------------------------------------
 
