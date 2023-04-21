@@ -6,24 +6,33 @@ npm i --global yarn
 
 ----------------------------------------------------
 
-
+npm i axios --save 
+npm i next-auth --save 
+npm i uuid --save 
+npm i nookies --save 
+npm i @types/cookie -D
+npm i react-hook-form --save 
 npm i lodash --save 
 npm i moment --save 
 npm i mongoose --save 
 npm i bcryptjs --save 
-npm i next-auth --save 
 npm i -g react-devtools
-npm i --save react-bootstrap bootstrap
-npm i --save bootstrap 
-npm i --save reactstrap 
-npm i --save axios
-npm i --save react-query
-npm i --save react-query-devtools --save
-npm i --save styled-components
-npm i --save react-router-dom
-npm i --save react-icons
-npm i --save typescript @types/node @types/react @types/react-dom @types/jest
+npm i react-bootstrap bootstrap
+npm i bootstrap 
+npm i reactstrap 
+npm i react-query
+npm i react-query-devtools --save
+npm i styled-components
+npm i react-router-dom
+npm i @headlessui/react
+npm i typescript @types/node @types/react @types/react-dom @types/jest
 npm install --save babel-plugin-relay
+
+npm i react-icons
+npm i @heroicons/react
+npm i -D  @heroicons/react
+
+npm audit fix --force
 
 ----------------------------------------------------
 
@@ -156,7 +165,13 @@ npm install eslint-plugin-import-helpers --save-dev
     }
 }
 
+
+npx create-next-app@latest
+
 npm run dev
+
+
+
 
 ----------------------------------------------------
 
