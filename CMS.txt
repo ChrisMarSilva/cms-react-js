@@ -6,6 +6,8 @@ npm i --global yarn
 
 ----------------------------------------------------
 
+npm run dev
+
 npm i axios --save 
 npm i next-auth --save 
 npm i uuid --save 
@@ -20,7 +22,7 @@ npm i -g react-devtools
 npm i react-bootstrap bootstrap
 npm i bootstrap 
 npm i reactstrap 
-npm i react-query
+npm i react-query --save 
 npm i react-query-devtools --save
 npm i styled-components
 npm i react-router-dom

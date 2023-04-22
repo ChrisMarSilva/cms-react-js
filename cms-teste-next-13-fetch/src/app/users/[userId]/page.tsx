@@ -1,9 +1,9 @@
 import { Suspense } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import getUser from '../../../../lib/user/getUser'
-import getUserPost from '../../../../lib/user/getUserPosts'
-import UserPosts from './components/UserPosts'
+import getUser from '@/services/user/getUser'
+import getUserPost from '@/services/user/getUserPosts'
+import UserPosts from '../../../components/UserPosts'
 
 type Params = {
   params: {
