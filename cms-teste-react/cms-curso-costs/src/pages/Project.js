@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import axios from 'axios'
-import { parse, v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid'
 
 import styles from './Project.module.css'
 import Loading from './../components/layout/Loading'
@@ -14,7 +14,7 @@ import ServiceCard from './../components/service/ServiceCard'
 const formatter = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL', minimumFractionDigits: 2 })
 
 export default function Project() {
-    let { id } = useParams()
+    const { id } = useParams()
     const [project, setProject] = useState([])
     const [saldo, setSaldo] = useState(0)
     const [showProjectForm, setShowProjectForm] = useState(false)
