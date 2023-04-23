@@ -86,6 +86,8 @@ export default function Project() {
     }
 
     const createService = async (project) => {  // function createService(project) {
+        setMessage('')
+
         // last service
         const lastService = project.services[project.services.length - 1]
         lastService.id = uuidv4()
@@ -125,6 +127,8 @@ export default function Project() {
     }
 
     const removeService = async (id, cost) => {  // function removeService(id, cost) {
+        setMessage('')
+        
         const servicesUpdated = project.services.filter(service => service.id !== id)
         const projectUpdated = project
         projectUpdated.services = servicesUpdated
