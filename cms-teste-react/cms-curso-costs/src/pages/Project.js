@@ -53,7 +53,9 @@ export default function Project() {
 
     }, [id])
 
-    const editPost = (project) => {  // function editPost(project) {
+    const editPost = async (project) => {  // function editPost(project) {x
+        setMessage('')
+
         // budget validation
         if (project.budget < project.cost) {
             setMessage('O Orçamento não pode ser menor que o custo do projeto!')
@@ -61,19 +63,26 @@ export default function Project() {
             return false
         }
 
-        fetch(`http://localhost:5000/projects/${project.id}`, {
-            method: 'PATCH',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(project),
-        })
-            .then((resp) => resp.json())
-            .then((data) => {
-                setProject(data)
-                setSaldo(parseFloat(data.budget) - parseFloat(data.cost))
-                setShowProjectForm(!showProjectForm)
-                setMessage('Projeto atualizado!')
-                setType('success')
-            })
+        const url = `http://localhost:5000/projects/${project.id}`
+        const headers = { 'Content-Type': 'application/json' }
+        const body = JSON.stringify(project)
+
+        // fetch(url, { method: 'PATCH', headers: headers, body: body })
+        //     .then((resp) => resp.json())
+        //     .then((data) => {
+        //         setProject(data)
+        //         setSaldo(parseFloat(data.budget) - parseFloat(data.cost))
+        //         setShowProjectForm(!showProjectForm)
+        //         setMessage('Projeto atualizado!')
+        //         setType('success')
+        //     })
+
+        const response = await axios.patch(url, body, { headers: headers })
+        setProject(response.data)
+        setSaldo(parseFloat(response.data.budget) - parseFloat(response.data.cost))
+        setShowProjectForm(!showProjectForm)
+        setMessage('Projeto atualizado!')
+        setType('success')
     }
 
     const createService = async (project) => {  // function createService(project) {
@@ -179,11 +188,9 @@ export default function Project() {
 
                         <div className={styles.service_form_container}>
                             <h2>Adicione um serviço:</h2>
-
                             <button className={styles.btn} onClick={toggleServiceForm}>
                                 {!showServiceForm ? 'Adicionar Serviço' : 'Fechar'}
                             </button>
-
                             <div className={styles.form}>
                                 {showServiceForm && <ServiceForm handleSubmit={createService} btnText="Adicionar Serviço" projectData={project} />}
                             </div>
