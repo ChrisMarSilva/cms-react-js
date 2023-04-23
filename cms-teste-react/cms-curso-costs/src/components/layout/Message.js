@@ -11,18 +11,15 @@ export default function Message({ type, msg }) {
         }
 
         setVisible(true)
-        const timer = setTimeout(() => { setVisible(false) }, 3000)
+
+        const timer = setTimeout(() => setVisible(false), 3000)
 
         return () => clearTimeout(timer)
     }, [msg])
 
     return (
         <>
-            {
-                visible
-                &&
-                <div className={`${styles.message} ${styles[type]}`}>{msg}</div>
-            }
+            {visible && <div className={`${styles.message} ${styles[type]}`}>{msg}</div>}
         </>
     )
 }
