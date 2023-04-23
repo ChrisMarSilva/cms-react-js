@@ -1,5 +1,44 @@
 {
-  "projects": [],
+  "projects": [
+    {
+      "name": "Proj-01",
+      "budget": "10000",
+      "category": {
+        "id": "1",
+        "name": "Infra"
+      },
+      "cost": 15,
+      "services": [
+        {
+          "name": "Proj-01-Serv-01",
+          "cost": "1",
+          "description": "a",
+          "id": "4b41213a-e5f1-47ee-ac49-c223ea02bd41"
+        },
+        {
+          "name": "Proj-01-Serv-02",
+          "cost": "2",
+          "id": "c50de5f1-e0e6-43a6-9144-476ac7d28dfc"
+        },
+        {
+          "name": "Proj-01-Serv-03",
+          "cost": "3",
+          "id": "5b1129f8-d338-46c5-8475-c5ab8e13ad01"
+        },
+        {
+          "name": "Proj-01-Serv-04",
+          "cost": "4",
+          "id": "483e205a-0c9a-40a1-ade5-8f13915614d4"
+        },
+        {
+          "name": "Proj-01-Serv-05",
+          "cost": "5",
+          "id": "3ed441cc-c4dd-4b3b-acff-3de38fce38d6"
+        }
+      ],
+      "id": 1
+    }
+  ],
   "categories": [
     {
       "id": 1,
