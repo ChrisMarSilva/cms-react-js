@@ -56,7 +56,7 @@ export default function Projects() {
         //         setProjectMessage('Projeto removido com sucesso!')
         //     })
 
-        const response = await axios.delete(url, { headers: headers })
+        await axios.delete(url, { headers: headers })
         setProjects(projects.filter((project) => project.id !== id))
         setProjectMessage('Projeto removido com sucesso!')
     }
