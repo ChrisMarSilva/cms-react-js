@@ -24,10 +24,10 @@ export default function Project() {
     const [type, setType] = useState('success')
 
     useEffect(() => {
-        // Para ver o loading
         const url = `http://localhost:5000/projects/${id}`
         const headers = { 'Content-Type': 'application/json' }
 
+        // Para ver o loading
         // setTimeout(
         //     () =>
         //         fetch(url, { method: 'GET', headers: headers })
@@ -47,7 +47,9 @@ export default function Project() {
             setServices(response.data.services)
         }
 
-        setTimeout(() => getData(), 0,)
+        // Para ver o loading
+        // setTimeout(() => getData(), 0,) // Aguarde 0 milisegundos
+        getData()
 
     }, [id])
 
