@@ -1,0 +1,145 @@
+
+npm i -g npm@latest
+npm i --global yarn
+npm i -g yarn
+
+----------------------------------------------------
+
+npm i -g react-devtools --save
+npm i -g react-query-devtools --save
+npm i -g json-server
+
+npm i react-router-dom --save
+npm i react-icons --save
+npm i axios --save 
+npm i react-query --save 
+npm i next-auth --save 
+npm i uuid --save 
+npm i nookies --save 
+npm i @types/cookie -D
+npm i react-hook-form --save 
+npm i lodash --save 
+npm i moment --save 
+npm i mongoose --save 
+npm i bcryptjs --save 
+npm i react-bootstrap
+npm i bootstrap
+npm i reactstrap 
+
+npm i styled-components
+npm i @headlessui/react
+npm i typescript @types/node @types/react @types/react-dom @types/jest
+npm install --save babel-plugin-relay
+
+npm i @heroicons/react
+npm i -D  @heroicons/react
+npm install -D tailwindcss postcss autoprefixer
+npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefixer@^9
+npx tailwindcss init -p
+npm install flowbite flowbite-react
+
+
+----------------------------------------------------
+
+npm run build
+npm install
+npm cache clean --force
+npm audit fix --force
+
+
+----------------------------------------------------
+
+yarn start:db
+yarn start
+npm start
+
+----------------------------------------------------
+
+npx eslint --init 
+escolher a segunda opção - Javascript modules (import/export)
+formato do arquivo: json
+
+https://github.com/facebook/react/tree/main/packages/eslint-plugin-react-hooks
+npm install eslint-plugin-react-hooks --save-dev
+
+.eslintrc.json
+
+{
+  "settings": {
+    "react": {
+        "version": "detect"
+    }
+  },
+  "plugins": [
+    "react-hooks"
+  ],
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/react-in-jsx-scope": "off"
+  }
+}
+
+https://prettier.io/docs/en/install.html
+npm install --save-dev --save-exact prettier
+
+criar o arquivo .prettierrc
+{
+    "trailingComma": "none",
+    "semi": true,
+    "singleQuote": true,
+}
+
+https://github.com/prettier/eslint-config-prettier#installation
+npm install --save-dev eslint-config-prettier
+
+.eslintrc.json
+
+{
+  "extends": [
+    "plugin:prettier/recommeded",
+    "prettier"
+  ]
+}
+
+
+https://github.com/prettier/eslint-plugin-prettier
+npm install --save-dev eslint-plugin-prettier
+
+.eslintrc.json
+
+{
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error"
+  }
+}
+
+https://github.com/Tibfib/eslint-plugin-import-helpers
+npm install eslint-plugin-import-helpers --save-dev
+
+.eslintrc.json
+
+{
+    plugins: ["eslint-plugin-import-helpers"],
+    rules: {
+        "import-helpers/order-imports": [
+            "warn",
+            {
+                newlinesBetween: "always",
+                groups: [
+                    ["/^react/", "/^next/", "/@next/"],
+                    "/^components/", 
+                    "/^module/", 
+                    "/^@shared/",
+                    "/^absolute/", 
+                    ["parent", "sibling", "index"]
+                ],
+                alphabetize: { order: "asc", ignoreCase: true },
+            },
+        ],
+    }
+}
+
+
+----------------------------------------------------

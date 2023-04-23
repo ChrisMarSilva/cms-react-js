@@ -1,0 +1,14 @@
+
+----------------------------------------------------
+
+npx create-react-app NomeProjeto
+npx create-react-app NomeProjeto --template typescript
+npm start
+
+----------------------------------------------------
+
+npm create vite@latest
+npm install
+npm run dev
+
+----------------------------------------------------
