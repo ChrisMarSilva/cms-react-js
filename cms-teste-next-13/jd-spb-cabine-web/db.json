@@ -1,0 +1,18 @@
+{
+  "listaif": {
+    "lista_ispb": [
+      {
+        "ispb": "04358798",
+        "nome": "JD Consultores"
+      },
+      {
+        "ispb": "11111111",
+        "nome": "Cliente 1"
+      },
+      {
+        "ispb": "22222222",
+        "nome": "Cliente 2"
+      }
+    ]
+  }
+}

@@ -1,0 +1,74 @@
+.btn-acesso-rapido {
+    border-radius: 15px;
+    height: 70px;
+    font-size: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    padding: 15px;
+    gap: 1rem;
+}
+
+.caixa-acesso-rapido-danger {
+    border: 1px solid #D8232A;
+    box-shadow: 8px 8px 0px 0.8px rgba(235,209,205,0.95);
+}
+
+.caixa-acesso-rapido-warning {
+    border: 1px solid #FF8226;
+    box-shadow: 8px 8px 0px 0.8px rgba(195,163,150,0.95);
+}
+
+.caixa-acesso-rapido-primary {
+    border: 1px solid #1F5FCC;
+    box-shadow: 8px 8px 0px 0.8px rgba(150,160,176,0.95);
+}
+
+.caixa-acesso-rapido-success {
+    border: 1px solid #008045;
+    box-shadow: 8px 8px 0px 0.8px #00804533; 
+}
+
+.quadro-aviso {
+    max-height: 260px;
+    overflow-y: auto;
+}
+
+.aviso-danger {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.aviso-titulo-danger {
+    border-radius: 15px 15px 0px 0px;
+    background-color: #D8232A;
+    padding: 10px 30px;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.aviso-success {
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.aviso-titulo-success {
+    border-radius: 15px 15px 0px 0px;
+    background-color: #008045;
+    padding: 10px 30px;
+    color: #fff;
+    font-weight: 700;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.aviso-body {
+    padding: 5px 30px;
+}

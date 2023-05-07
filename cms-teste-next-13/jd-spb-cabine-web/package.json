@@ -1,0 +1,36 @@
+{
+  "name": "jd-spb-cabine-web",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 3001",
+    "server": "json-server db.json -w --port 3000",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.14",
+    "@types/node": "20.1.0",
+    "@types/react": "18.2.6",
+    "@types/react-dom": "18.2.4",
+    "axios": "^1.4.0",
+    "eslint": "8.40.0",
+    "eslint-config-next": "13.4.1",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "next": "13.4.1",
+    "next-auth": "^4.22.1",
+    "nookies": "^2.5.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-icons": "^4.8.0",
+    "react-query": "^3.39.3",
+    "typescript": "5.0.4"
+  },
+  "devDependencies": {
+    "@types/cookie": "^0.5.1",
+    "json-server": "^0.17.0"
+  }
+}

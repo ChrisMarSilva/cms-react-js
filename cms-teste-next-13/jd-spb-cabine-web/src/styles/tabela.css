@@ -1,0 +1,50 @@
+.table-responsive {
+    max-width: 92vw;
+}
+
+thead {
+    background-color: #991B08;
+    font-size: 12px;
+    color: #fff;
+    text-align: center;
+    height: 35px;
+}
+
+tbody {
+    text-align: center;
+    font-size: 13px;
+}
+
+tbody tr {
+    height: 37px;
+}
+
+th, td {
+    white-space: nowrap;
+}
+
+.border-thead-acoes {
+    border-right: 1px dashed #FFFFFF;
+}
+
+.border-tbody-acoes {
+    border-right: 1px dashed #991b08;
+}
+
+.border-thead-acoes>div>img {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.border-tbody-acoes>div>img {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.acoes {
+    cursor: pointer;
+}
+
+.thead-acoes {
+    min-width: 85px;
+}

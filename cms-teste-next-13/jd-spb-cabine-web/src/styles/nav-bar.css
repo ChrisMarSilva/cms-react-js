@@ -1,0 +1,100 @@
+.navbar {
+    box-shadow: 0px 3px 6px #272D3B33;
+    height: 57px !important;
+    background-color: #fff;
+}
+
+.hr-vertical {
+    border: 1px solid #707070;
+    width: 0px;
+    height: 32px;
+}
+
+.opcoes-nav {
+    display: flex;
+    align-items: center !important;
+    border-bottom: 5px solid #fff;
+    font-size: 13px;
+}
+
+.opcoes-nav:hover {
+    background-color: #A1A1A133 !important;
+    border-bottom: 5px solid #cc240a;
+}
+
+.usuario {
+    font-size: 13px;
+}
+
+.navbar-brand {
+    font-size: 25px;
+}
+
+.default-user-icon {
+    width: 33px;
+    height: 33px;
+}
+
+.icone-sair {
+    background: url("../assets/icons/close-info.svg") no-repeat center center;
+    width: 14px;
+    height: 14px;
+}
+
+.btn-sair:hover .icone-sair {
+    background: url("../assets/icons/close-white.svg") no-repeat center center;
+}
+
+
+/* Menus DropDown */
+.dropdown-menu-link {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 100%;
+    border-radius: 0px 0px 20px 20px;
+    padding: 10px 20px 20px 20px;
+}
+
+.dropdown-menu-link a {
+    color: black;
+    padding: 5px 10px;
+    text-decoration: none;
+    display: block;
+    font-size: 13px;
+    border-bottom: 1px solid #86868633;
+    text-align: left;
+}
+
+.dropdown-menu-link > a:hover {
+    background-color: #A1A1A133;
+}
+
+.dropdown-menu-link:hover {
+    display: block;
+}
+
+#menu-monitores:hover ~ #link-monitores {
+    display: block;
+}
+
+#link-monitores {
+    left: 20%;
+}
+
+#menu-cadastro:hover ~ #link-cadastro {
+    display: block;
+}
+
+#link-cadastro {
+    left: 0%;
+}
+
+
+
+
+
+
