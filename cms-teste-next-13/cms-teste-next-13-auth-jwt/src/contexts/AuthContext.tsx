@@ -24,7 +24,7 @@ export function AuthProvider({ children }: Props) {
     useEffect(() => {
         const { 'cms.teste.next.13.auth.jwt.token': token } = parseCookies()
         if (token)
-            recoverUserInformation().then(res => {
+            recoverUserInformation(token).then(res => {
                 setUser(res.user)
                 Router.push('/dashboard')
             })
