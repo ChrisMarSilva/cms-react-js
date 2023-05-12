@@ -1,0 +1,29 @@
+
+----------------------------------------------------
+
+npm create astro@latest
+yarn create astro
+
+cd cms-teste-astro
+
+yarn astro add react tailwindcss
+yarn add nanostores @nanostores/react
+yarn add nanoid
+
+npm install --save-dev prettier prettier-plugin-astro
+
+
+npm run dev
+yarn dev
+
+npm cache clean --force
+npm audit fix --force
+
+----------------------------------------------------
+
+
+
+
+
+
+----------------------------------------------------
