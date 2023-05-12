@@ -11,7 +11,9 @@ import UserTable from "../components/UserTable";
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
-	<body class="flex antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900">
+	<body
+		class="flex antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900"
+	>
 		<div class="flex-1">
 			<UserForm client:visible />
 		</div>
@@ -20,3 +22,61 @@ import UserTable from "../components/UserTable";
 		</div>
 	</body>
 </html>
+
+<!-- 
+
+	---
+import pokemon from "../components/pokemon.json";
+
+import PokemonList from "../components/PokemonList";
+import Login from "../components/Login";
+---
+
+<html lang="en">
+	<body>
+		<main>
+			<Login client:visible />
+			<PokemonList pokemon={pokemon} />
+		</main>
+	</body>
+</html>
+
+
+---
+import PokemonCard from "../components/PokemonCard";
+import Layout from "../components/Layout.astro";
+
+const res = await fetch("http://localhost:8080/pokemon.json");
+const pokemon = await res.json();
+
+const q = Astro.url.searchParams.get("q")?.toLowerCase() ?? "";
+const filteredPokemon = pokemon.filter((p: any) =>
+	p.name.toLowerCase().includes(q)
+);
+---
+
+<Layout>
+	<form>
+		<input
+			type="text"
+			name="q"
+			value={q}
+			class="p-3 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-xl border-gray-300 border-2 rounded-md"
+			placeholder="Search"
+		/>
+	</form>
+	<div class="grid grid-cols-3 gap-5 mt-3">
+		{
+			filteredPokemon.slice(0, 10).map((p: any) => (
+				<a href={`/pokemon/${p.id}`}>
+					<PokemonCard pokemon={p} />
+				</a>
+			))
+		}
+	</div>
+</Layout>
+
+
+
+
+-->
