@@ -26,6 +26,9 @@ npm i react-bootstrap
 npm i bootstrap
 npm i reactstrap 
 
+npm i @reduxjs/toolkit
+npm i react-redux
+
 npm i styled-components
 npm i @headlessui/react
 npm i typescript @types/node @types/react @types/react-dom @types/jest
