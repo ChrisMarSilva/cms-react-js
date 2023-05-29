@@ -5,6 +5,9 @@ npx create-react-app NomeProjeto
 npx create-react-app NomeProjeto --template typescript
 npm start
 
+
+cms-teste-data-xxxx
+
 ----------------------------------------------------
 
 npm create vite@latest

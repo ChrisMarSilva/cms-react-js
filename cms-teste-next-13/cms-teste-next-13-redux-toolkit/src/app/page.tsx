@@ -3,6 +3,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import type { RootState } from '@/store/store'
 import { increment, decrement, incrementByAmount } from '@/store/features/counter/counterSlice'
+// import { getCounters } from '@/store/features/counter/counterSlice'
 import { useGetPokemonByNameQuery } from '@/services/pokemon'
 
 import styles from './page.module.css'
@@ -11,6 +12,12 @@ export default function HomePage() {
   const count = useSelector((state: RootState) => state.counter.value)
   const dispatch = useDispatch()
   const { data, error, isLoading } = useGetPokemonByNameQuery('bulbasaur')
+
+  // const { entities, loading } = useSelector((state) => state.posts)
+
+  // useEffect(() => {
+  //   dispatch(getPosts())
+  // }, [])
 
   return (
     <>

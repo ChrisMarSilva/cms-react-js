@@ -4,6 +4,8 @@
 npm create astro@latest
 yarn create astro
 
+cms-teste-astro-xxxx
+
 cd cms-teste-astro
 
 yarn astro add react tailwindcss

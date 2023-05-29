@@ -4,5 +4,61 @@
 npx create-next-app@latest
 npm run dev
 
+cms-teste-next-13-xxxx
+
 ----------------------------------------------------
 
+json-server --watch db.json
+npm run server
+
+----------------------------------------------------
+
+
+
+
+
+import {useForm} from "react-hook-form";
+const {register, handleSubmit, formState: {isSubmitting}} = useForm();
+const {register, handleSubmit, setError, formState: {isSubmitting, errors}} = useForm();
+
+
+useForm({
+  defaultValues: { email: "default@example.com" }
+})
+
+<input type="email" autoComplete="email" {...register("email", {required: true})} />
+<div className="error">{errors.email?.message}</div>
+
+<form onSubmit={handleSubmit(onSubmit)}>
+
+ <form onSubmit={handleSubmit(saveFormData)}>
+        <label htmlFor="email">Email</label>
+        <input type="email" autoComplete="email"
+               {...register("email", {required: true})} />
+        <button disabled={isSubmitting}>
+            {isSubmitting ? <Loading/> : "Submit"}
+        </button>
+    </form>
+
+----------------------------------------------------
+
+
+
+type HomeProps = {
+  children: React.ReactNode;
+}
+
+const Home = async ({ children }: HomeProps) => {
+  return (
+    <>
+      <h1>Home</h1>
+      {children}
+      <div>JSON.stringify(data)</div>
+    </>
+  )
+}
+
+export default Home;
+
+
+----------------------------------------------------

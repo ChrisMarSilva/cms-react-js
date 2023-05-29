@@ -6,13 +6,14 @@ npm i -g yarn
 ----------------------------------------------------
 
 npm i -g react-devtools --save
-npm i -g react-query-devtools --save
 npm i -g json-server
 
 npm i react-router-dom --save
 npm i react-icons --save
 npm i axios --save 
-npm i react-query --save 
+npm i @tanstack/react-query
+npm i -D @tanstack/eslint-plugin-query
+npm i @tanstack/react-query-devtools
 npm i next-auth --save 
 npm i uuid --save 
 npm i nookies --save 
@@ -26,8 +27,13 @@ npm i react-bootstrap
 npm i bootstrap
 npm i reactstrap 
 
+npm i redux
 npm i @reduxjs/toolkit
 npm i react-redux
+npm i next-redux-wrapper
+npm i redux-thunk
+npm i redux-persist
+npm i redux-devtools-extension --save-dev
 
 npm i styled-components
 npm i @headlessui/react
