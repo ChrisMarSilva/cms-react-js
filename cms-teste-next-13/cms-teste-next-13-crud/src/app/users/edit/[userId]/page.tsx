@@ -38,6 +38,9 @@ export default function UserEditPage({ params: { userId } }: Params) {
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // if(Object.keys(formData).length == 0) return console.log("Don't have Form Data");
+        //  const { id, name, email } = formData;
+
         dispatch(UpdateUser({
             id: parseInt(userId),
             name: formData.name,

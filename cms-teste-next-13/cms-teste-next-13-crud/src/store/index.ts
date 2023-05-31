@@ -1,21 +1,33 @@
 import { configureStore, } from '@reduxjs/toolkit';
-//import { ThunkAction, } from '@reduxjs/toolkit';
-//import { Action } from 'redux';
+// import { createListenerMiddleware, } from '@reduxjs/toolkit';
+// import { ThunkAction, } from '@reduxjs/toolkit';
+// import { Action } from 'redux';
 import { setupListeners } from '@reduxjs/toolkit/query'
-import thunkMiddleware from 'redux-thunk'
-//import { createWrapper, Context } from "next-redux-wrapper";
+import logger from "redux-logger";
+import thunk from "redux-thunk";
+// import thunkMiddleware from 'redux-thunk'
+// import { createWrapper, Context } from "next-redux-wrapper";
 // import { composeWithDevTools } from "redux-devtools-extension";
 
 import { userSlice } from "@/store/features/userSlice"; // userReducer
 
-const middleware = [thunkMiddleware]; // thunk // thunkMiddleware
+// const listenerMiddleware = createListenerMiddleware();
+// listenerMiddleware.startListening({ actionCreator: todoAdded, })
+
+// middleware: composeWithDevTools(applyMiddleware(...middleware)),
+//const middleware = [thunkMiddleware];
+const middleware = [thunk];
+//const middleware = [thunk, logger];
 
 export const store = configureStore({
     reducer: {
-        user: userSlice.reducer,
-        //[userSlice.name]: userSlice.reducer, 
+        user: userSlice.reducer, //[userSlice.name]: userSlice.reducer, 
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middleware), // middleware: composeWithDevTools(applyMiddleware(...middleware)),
+    // middleware: middleware,
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(middleware),
+    // middleware : (getDefaultMiddleware) => getDefaultMiddleware().prepend(listenerMiddleware.middleware), 
+    // middleware: (getDefaultMiddleWare) => getDefaultMiddleWare({ thunk: false }).prepend(listenerMiddleware),
     devTools: true,
 });
 

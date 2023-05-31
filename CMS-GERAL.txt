@@ -32,6 +32,8 @@ npm i @reduxjs/toolkit
 npm i react-redux
 npm i next-redux-wrapper
 npm i redux-thunk
+npm i redux-logger
+npm i --save-dev @types/redux-logger
 npm i redux-persist
 npm i redux-devtools-extension --save-dev
 
@@ -47,15 +49,22 @@ npm install -D tailwindcss@npm:@tailwindcss/postcss7-compat postcss@^7 autoprefi
 npx tailwindcss init -p
 npm install flowbite flowbite-react
 
+npm install --save mysql2
+npm install -g sass 
+npm install react-icons --save
 
 ----------------------------------------------------
 
 npm run build
 npm install
+npm install --force
+npm install --legacy-peer-deps
 npm cache clean --force
 npm audit fix --force
 
-
+npm install -g serve
+ serve -s build
+ 
 ----------------------------------------------------
 
 yarn start:db
@@ -150,5 +159,18 @@ npm install eslint-plugin-import-helpers --save-dev
     }
 }
 
+
+----------------------------------------------------
+
+    const openMenu = useCallback(() => {
+        setIsMenuOpen(true);
+    }, []);
+
+    const closeMenu = useCallback(() => {
+        setIsMenuOpen(false);
+    }, []);
+
+
+    
 
 ----------------------------------------------------

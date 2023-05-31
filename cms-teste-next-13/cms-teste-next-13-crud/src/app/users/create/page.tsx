@@ -41,6 +41,9 @@ export default function UserCeatePage() {
         //const formURL = e.target.action
         //const data = new FormData()
 
+        // if(Object.keys(formData).length == 0) return console.log("Don't have Form Data");
+        //  const { id, name, email } = formData;
+
         dispatch(addUser({
             id: users.data.length > 0 ? users.data[users.data.length - 1].id + 1 : 1,
             name: formData.name, // const name = e.target.name.value;

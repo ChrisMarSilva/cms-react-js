@@ -25,8 +25,9 @@ export default function UserPage() {
         dispatch(deleteUser({ id: userId }))
     }
 
-    if (users.error) return <div>Failed to load</div>;
     if (users.isLoading) return <div>Loading...</div>;
+
+    if (users.error) return <div>Failed to load</div>;
 
     return (
         <Layout>
@@ -42,7 +43,7 @@ export default function UserPage() {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.data?.map((user, index) => (
+                        {users.data && users.data.length > 0 && users.data?.map((user, index) => (
                             <tr key={index}>
                                 <td>{user.id}</td>
                                 <td>{user.name}</td>

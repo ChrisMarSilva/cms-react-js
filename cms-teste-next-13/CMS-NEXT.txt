@@ -62,3 +62,180 @@ export default Home;
 
 
 ----------------------------------------------------
+
+const id = Math.random().toString(36).substring(2);
+
+console.clear();
+console.log(`#1 = ${Math.random().toString(36).substring(2)}`);
+console.log(`#2 = ${Math.random().toString(36).substring(7)}`);
+console.log(`#3 = ${Math.random().toString(36).slice(2, 7)}`);
+console.log(`#4 = ${Math.random().toString(36).slice(-5)}`);
+const randomString=length=>Math.random().toString(36).substr(2,length).split("").map(e=>Math.random()<Math.random()?e.toUpperCase():e).join().replaceAll(",","");
+console.log(`#5 = ${randomString(10)}`);
+console.log(`#6 = ${Math.floor(Math.random() * Date.now()).toString(36)}`);
+
+ const total = Number(entries) - Number(outputs);
+
+                
+----------------------------------------------------
+
+
+
+
+import mysql from "mysql2/promise";
+
+export async function query({ query, values = [] }) {
+  const dbconnection = await mysql.createConnection(
+    process.env.MYSQL_DATABASE_URL
+  );
+
+  //Digital ocean ubuntu
+  // const dbconnection = await mysql.createConnection({
+  //   host: process.env.MYSQL_HOST,
+  //   database: process.env.MYSQL_DATABASE,
+  //   user: process.env.MYSQL_USER,
+  //   password: process.env.MYSQL_PASSWORD,
+  // });
+
+  try {
+    const [results] = await dbconnection.execute(query, values);
+    dbconnection.end();
+    return results;
+  } catch (error) {
+    throw Error(error.message);
+    return { error };
+  }
+}
+
+
+//in a separate node js file you can use this wrapper like this:
+  // const productName = req.body.product_name;
+    // const addProducts = await query({
+    //   query: "INSERT INTO products (product_name) VALUES (?)",
+    //   values: [productName],
+    // });
+
+
+//add object to state
+setProducts([
+  ...products,
+  {
+    product_id: newproduct.product_id,
+    product_name: newproduct.product_name,
+  },
+]);
+
+
+//update object to state
+const productsStateAfterUpdate = products.map((product) => {
+    if (product.product_id === productIdToUpdate) {
+      const productUpdated = {
+        ...product,
+        product_name: productUpdatedName,
+      };
+      return productUpdated;
+    } else {
+      return {
+        ...product,
+      };
+    }
+  });
+  setProducts(productsStateAfterUpdate);
+  
+  
+ //remove object from state
+ setProducts(products.filter((a) => a.product_id !== idToRemove));
+
+
+
+
+
+ const options = {
+  method: 'GET',
+  url: 'https://fitness-calculator.p.rapidapi.com/idealweight',
+  params: { gender, height },
+  headers: {
+    'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com',
+    'X-RapidAPI-Key': process.env.REACT_APP_API_KEY,
+  },
+}
+
+const response = await axios.request(options)
+    const { Devine, Hamwi, Miller, Robinson } = response.data.data
+
+try {
+} catch (err) {
+    console.log("catch idealweight")
+    store.dispatch(throwErr())
+  }
+
+
+onst idealWeightRequest = (questionData) => {
+
+function findIndexOf(string) {
+  return questionData.findIndex((question) => question.inputName === string)
+}
+
+function getValue(string) {
+    return questionData[findIndexOf(string)].value
+}
+
+let height = getValue('height')
+let gender = getValue('gender')
+
+if(typeof expression === 'undefined') return true
+
+
+src/utils
+
+/converters.js
+export function convertLbsToKg(lbs) {
+return Number((lbs / 2.205).toFixed(0))
+}
+
+function convertFtAndInches(ft) {
+let feet = ft.split("'")[0] //feet
+let inches = ft.split("'")[1] // inches
+let ftToCm = (feet * 0.3048 + inches * 0.0254) //1.93
+return Number(ftToCm * 100).toFixed(0) // 193 cm
+}
+
+export function convertFtToCm(ft) {
+if (!ft.includes("'")) return (ft * 30.48).toFixed(0)
+if (ft.includes("'") && ft.length === 2) return (Number(ft.charAt(0)) * 30.48).toFixed(0)
+else return Number(convertFtAndInches(ft))
+}
+
+
+
+
+
+import { useSelector } from "react-redux"
+
+const Footer = () => {
+
+const navigation = useSelector(state => state.nav)
+
+return (
+  <footer className='bg-gray-900'>
+    <div className='max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8'>
+      <nav className='-mx-5 -my-2 flex flex-wrap justify-center' aria-label='Footer'>
+        {navigation.map((item) => (
+          <div key={item.name} className='px-5 py-2'>
+            <a
+              href={item.href}
+              className='text-base text-gray-400 hover:text-gray-300 transition'>
+              {item.name}
+            </a>
+          </div>
+        ))}
+      </nav>
+      <p className='mt-8 text-center text-base text-gray-500'>
+        &copy; 2022 Nayless - all rights reserved.
+      </p>
+    </div>
+  </footer>
+)
+}
+
+export default Footer
