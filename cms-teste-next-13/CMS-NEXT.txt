@@ -12,3 +12,5 @@ json-server --watch db.json
 npm run server
 
 ----------------------------------------------------
+
+npm install eslint-plugin-react-hooks@next

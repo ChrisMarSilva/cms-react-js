@@ -21,6 +21,7 @@
     "bootstrap": "^5.2.3",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",
+    "eslint-plugin-react-hooks": "^5.0.0-canary-018c58c9c-20230601",
     "mysql2": "^3.3.3",
     "next": "13.4.4",
     "next-redux-wrapper": "^8.1.0",

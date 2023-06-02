@@ -1,13 +1,14 @@
 "use client"
 
-import React, { useEffect, useState, } from "react";
+import React, { useEffect, useState, useCallback, } from "react";
 import type { Metadata } from 'next';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
-import { useSelector, useDispatch } from 'react-redux'
+//import { useSelector, useDispatch } from 'react-redux'
 
-import type { RootState } from '@/store'
-import { addUser } from "@/store/features/userSlice";
+//import type { RootState } from '@/store'
+//import { addUser } from "@/store/features/userSlice";
+import useUsers from "@/hooks/useUsers";
 import Layout from '@/components/layout';
 
 export const metadata: Metadata = {
@@ -17,13 +18,11 @@ export const metadata: Metadata = {
 export default function UserCeatePage() {
     const router = useRouter();
     //console.log(router);
+    //const dispatch = useDispatch();
+    //const users = useSelector((state: RootState) => state.user);
+    const { query, mutation, addMutation, addUser, } = useUsers();
 
-    const dispatch = useDispatch();
-    const users = useSelector((state: RootState) => state.user);
-
-    const [formData, setFormData] = useState({ name: "Pessoa x", email: "emailx@gmail.com" });
-    // const [name, seName] = useState<string>('');
-    // const [email, setEmail] = useState<string>('');
+    const [formData, setFormData] = useState({ name: "Pessoa x", email: "emailx@gmail.com", });
 
     useEffect(() => {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
@@ -38,28 +37,27 @@ export default function UserCeatePage() {
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        //const formURL = e.target.action
-        //const data = new FormData()
 
-        // if(Object.keys(formData).length == 0) return console.log("Don't have Form Data");
-        //  const { id, name, email } = formData;
-
-        dispatch(addUser({
-            id: users.data.length > 0 ? users.data[users.data.length - 1].id + 1 : 1,
-            name: formData.name, // const name = e.target.name.value;
-            email: formData.email // const email = e.target.email.value;
-        }))
-
-        setFormData({ name: "", email: "" })
-        router.push('/users')
-
+        // const formURL = e.target.action
+        // const data = new FormData()
         //  Object.entries(formData).forEach(([key, value]) => { data.append(key, value); })
         //  let formData = new FormData();
         //  for (let [key, value] of Object.entries(state)) { formData.append(key, value); }
-        //  fetch(formURL, { method: "POST", body: data, headers: { 'accept': 'application/json' } })
-        // .then(() => { setFormData({  name: "",  email: "" })
-        // })
 
+        if (Object.keys(formData).length == 0)
+            return console.log("Don't have Form Data");
+
+        const id = query.data && query.data.length > 0 ? query.data[query.data.length - 1].id + 1 : 1;
+        const { name, email } = formData;  // const name = e.target.name.value;
+        // console.log(`submitForm -> id: ${id} - name: ${name} - email: ${email}`);
+
+        //dispatch(addUser({ id: id, name: name, email: email, }));
+        //await addUser(id, name, email);
+        await addMutation.mutate({ id: id, name: name, email: email });
+        //await mutation.mutate();
+
+        router.push('/users');
+        setFormData({ name: "", email: "" });
     }
 
     return (

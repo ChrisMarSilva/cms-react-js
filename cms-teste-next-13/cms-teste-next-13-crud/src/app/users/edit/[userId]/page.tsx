@@ -1,14 +1,16 @@
 "use client"
 
-import React, { useEffect, useState, } from "react";
-import type { Metadata } from 'next';
+import React, { useEffect, useState, useCallback, } from "react";
+//import type { Metadata } from 'next';
 import Link from 'next/link'
 import { useRouter } from 'next/navigation';
-import { useSelector, useDispatch } from 'react-redux'
+//import { useSelector, useDispatch } from 'react-redux'
 
-import type { RootState } from '@/store'
-import { UpdateUser } from "@/store/features/userSlice";
+///import type { RootState } from '@/store'
+//import { UpdateUser } from "@/store/features/userSlice";
+import useUsers from "@/hooks/useUsers";
 import Layout from '@/components/layout';
+import { User } from "@/models/user";
 
 type Params = {
     params: {
@@ -18,37 +20,49 @@ type Params = {
 
 export default function UserEditPage({ params: { userId } }: Params) {
     const router = useRouter();
-    const dispatch = useDispatch();
-    const users = useSelector((state: RootState) => state.user);
-    const user = users.data.filter(x => x.id === parseInt(userId));
-    const { name, email } = user[0]
+    //const dispatch = useDispatch();
+    // const users = useSelector((state: RootState) => state.user);
+    // const user = users.data.filter(x => x.id === parseInt(userId));
+    // const { name, email } = user[0]
+    const { mutation, updateMutation, getUser, altUser, } = useUsers();
 
-    const [formData, setFormData] = useState({ name: name, email: email });
+    const [formData, setFormData] = useState({ name: "", email: "" });
 
     useEffect(() => {
         require("bootstrap/dist/js/bootstrap.bundle.min.js");
+        carregarDados();
     }, []);
 
+    const carregarDados = async () => {
+        const user = await getUser(parseInt(userId));
+        setFormData({ name: user.name, email: user.email });
+    }
+
     const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const fieldName = e.currentTarget.name;
+        const fieldName = e.currentTarget.name; // e.currentTarget.name; // e.target.name;
         const fieldValue = e.currentTarget.value;
+        //console.log(`${fieldName}: ${fieldValue}`)
         setFormData((prevState) => ({ ...prevState, [fieldName]: fieldValue }));
     }
 
     const submitForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // if(Object.keys(formData).length == 0) return console.log("Don't have Form Data");
-        //  const { id, name, email } = formData;
+        if (Object.keys(formData).length == 0)
+            return console.log("Don't have Form Data");
 
-        dispatch(UpdateUser({
-            id: parseInt(userId),
-            name: formData.name,
-            email: formData.email
-        }))
+        const id = parseInt(userId);
+        const { name, email } = formData;
+        //console.log(`submitForm -> id: ${id} - name: ${name} - email: ${email}`)
 
-        setFormData({ name: "", email: "" })
-        router.push('/users')
+        //dispatch(UpdateUser({ id: id, name: name, email: email }));
+        //await altUser(id, name, email);
+        // let updated = Object.assign({}, data, formData, { name: userName })
+        await updateMutation.mutate({ id: id, name: name, email: email });
+        //await mutation.mutate();
+
+        router.push('/users');
+        setFormData({ name: "", email: "" });
     }
 
     return (

@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 //import Head from "next/head";
 import { Inter } from 'next/font/google';
 import Providers from '@/store/provider';
+import QueryProvider from '@/hooks/provider';
 //import { wrapper } from '@/store';
 
 export const metadata: Metadata = {
@@ -26,7 +27,9 @@ function RootLayout({ children }: RootLayoutProps) {
       </Head> */}
       <body className={inter.className}>
         <Providers>
-          {children}
+          <QueryProvider>
+            {children}
+          </QueryProvider>
         </Providers>
       </body>
     </html>
