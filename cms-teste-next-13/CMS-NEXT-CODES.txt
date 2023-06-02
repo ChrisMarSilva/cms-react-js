@@ -1,4 +1,120 @@
 
+const {data} = await axios.post('/user', document.querySelector('#my-form'), {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+
+
+ headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+
+ headers: {
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }
+
+
+const instance = axios.create({
+  baseURL: 'https://some-domain.com/api/',
+  timeout: 1000,
+  headers: {'X-Custom-Header': 'foobar'}
+});
+
+
+axios.get('/user/12345')
+  .then(function (response) {
+    console.log(response.data);
+    console.log(response.status);
+    console.log(response.statusText);
+    console.log(response.headers);
+    console.log(response.config);
+  });
+
+
+axios.defaults.baseURL = 'https://api.example.com';
+axios.defaults.headers.common['Authorization'] = AUTH_TOKEN;
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
+
+
+axios.get('/user/12345')
+  .catch(function (error) {
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error.config);
+  });
+
+
+const params = new URLSearchParams();
+params.append('param1', 'value1');
+params.append('param2', 'value2');
+axios.post('/foo', params);
+
+
+const data = { 'bar': 123 };
+const options = {
+  method: 'POST',
+  headers: { 'content-type': 'application/x-www-form-urlencoded' },
+  data: qs.stringify(data),
+  url,
+};
+axios(options);
+
+
+const url = require('url');
+const params = new url.URLSearchParams({ foo: 'bar' });
+axios.post('http://something.com/', params.toString());
+
+
+const form = new FormData();
+form.append('my_field', 'my value');
+form.append('my_buffer', new Blob([1,2,3]));
+form.append('my_file', fileInput.files[0]);
+
+axios.post('https://example.com', form)
+
+
+const handleChange = (e) => {
+    const value = e.target.value;
+    setState({
+      ...state,
+      [e.target.name]: value
+    });
+  };
+
+
+ <input
+            type="text"
+            name="name"
+            value={state.name}
+            onChange={handleChange}
+          />
+
+
+const handleSubmit = async () => {
+    try {
+      const response = await axios.post(url, userData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+
+        ----------------------------------------------------
 
 const { users, loading } = useSelector((state) => state.app);
 
