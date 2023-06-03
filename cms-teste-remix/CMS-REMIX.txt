@@ -1,0 +1,19 @@
+
+----------------------------------------------------
+
+npx create-remix@latest
+npx create-remix@latest --template remix-run/indie-stack blog-tutorial
+
+cms-teste-remix-xxxx
+
+npm run dev
+npm run build
+
+----------------------------------------------------
+
+
+
+
+
+
+----------------------------------------------------

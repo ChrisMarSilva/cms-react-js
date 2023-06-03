@@ -1,4 +1,21 @@
 
+
+npm install bcryptjs
+npm install --save-dev @types/bcryptjs
+
+import bcrypt from 'bcryptjs'
+
+const salt = bcrypt.genSaltSync(10)
+ var hash = bcrypt.hashSync(values.newPassword, 10);
+ const hashedPassword = bcrypt.hashSync(password, '$2a$10$CwTycUXWue0Thq9StjUM0u')
+
+
+
+
+        ----------------------------------------------------
+
+
+
 const {data} = await axios.post('/user', document.querySelector('#my-form'), {
   headers: {
     'Content-Type': 'application/json'
