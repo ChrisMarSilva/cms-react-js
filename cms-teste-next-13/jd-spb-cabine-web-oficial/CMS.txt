@@ -1,0 +1,74 @@
+
+npm install - g ts - node@latest
+npm install - g typescript @latest
+
+----------------------------------------------------
+
+npx create - next - app@latest
+npm run dev
+
+npm run build
+npm install
+npm cache clean--force
+npm audit fix--force
+
+----------------------------------------------------
+
+npm i -g react-devtools --save
+npm i -g @tanstack/react-query-devtools --save
+npm i -g json -server
+
+npm i react - router - dom--save
+npm i react - icons--save
+npm i axios--save 
+npm i @tanstack/react-query
+npm i @types/react-query --save-dev
+npm i next - auth--save 
+npm i uuid--save 
+npm install --save @types/uuid
+npm i lodash--save 
+npm i moment--save 
+npm i react - hook - form--save 
+npm i nookies--save 
+npm i @types/cookie -D
+npm i @headlessui/react --save 
+
+npm install react - bootstrap bootstrap
+
+npm i redux
+npm i @reduxjs/toolkit
+npm i react-redux
+npm i redux-thunk
+npm i redux-logger
+npm i @types/redux-logger --save-dev
+npm i redux-devtools-extension --save-dev
+
+npm install eslint-plugin-react-hooks@next
+
+npm i sharp
+
+----------------------------------------------------
+
+npm install - g json - server
+
+Create a db.json file with some data
+{
+"posts": [
+  { "id": 1, "title": "json-server", "author": "typicode" }
+],
+  "comments": [
+    { "id": 1, "body": "some comment", "postId": 1 }
+  ],
+    "profile": { "name": "typicode" }
+}
+
+json - server--watch db.json
+
+
+"scripts": {
+"dev": "next dev -p 3001",
+  "server": "json-server db.json -w --port 3002",
+
+    npm run server
+
+----------------------------------------------------

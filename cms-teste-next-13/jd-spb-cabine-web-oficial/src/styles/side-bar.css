@@ -1,0 +1,20 @@
+.side-bar {
+    width: 50px;
+    height: 100vh;
+    background: transparent linear-gradient(180deg, #E64508CC 0%, #AA0E0E 100%) 0% 0% no-repeat padding-box;
+}
+
+.notificacao {
+    height: 57px;
+    box-shadow: 0px 3px 6px #272D3B33;
+}
+
+.icon-notificacao {
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    font-size: 10px;
+    text-align: center;
+    color: #fff;
+    background-color: #DFFF00;
+}
