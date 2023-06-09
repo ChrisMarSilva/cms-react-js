@@ -6,6 +6,11 @@ npm run dev
 
 cms-teste-next-13-xxxx
 
+cms-teste-next-13-bd-sqlserve
+cms-teste-next-13-bd-oralce
+cms-teste-next-13-bd-redis
+cms-teste-next-13-bd-mongo
+
 ----------------------------------------------------
 
 json-server --watch db.json
@@ -14,3 +19,6 @@ npm run server
 ----------------------------------------------------
 
 npm install eslint-plugin-react-hooks@next
+
+
+----------------------------------------------------
