@@ -1,0 +1,15 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider     = "mysql" // "sqlite"
+    url          = env("MYSQL_CONNECTION_URL") // "file:./dev.db"
+    relationMode = "prisma"
+}
+
+model User {
+    id       Int    @id @default(autoincrement())
+    username String @db.VarChar(250)
+    email    String @db.VarChar(250)
+}

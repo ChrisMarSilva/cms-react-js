@@ -2,44 +2,51 @@
   "extends": [
     "next/babel",
     "next/core-web-vitals"
-  ],
-  "rules": {
-    "react/require-default-props": "off",
-    "no-undef": "off",
-    "no-unused-vars": "off",
-    "no-console": "off",
-    "no-unused-labels": "off",
-    "@typescript-eslint/no-unused-vars": [
-      "error",
-      {
-        "varsIgnorePattern": "^_",
-        "argsIgnorePattern": "^_"
-      }
-    ],
-    "@typescript-eslint/naming-convention": [
-      "error",
-      {
-        "selector": "variable",
-        "format": [
-          "camelCase",
-          "PascalCase",
-          "UPPER_CASE"
-        ],
-        "leadingUnderscore": "allow"
-      },
-      {
-        "selector": "function",
-        "format": [
-          "camelCase",
-          "PascalCase"
-        ]
-      },
-      {
-        "selector": "typeLike",
-        "format": [
-          "PascalCase"
-        ]
-      }
-    ]
-  }
+    // "plugin:@typescript-eslint/recommended",
+    // "prettier/@typescript-eslint",
+    // "plugin:prettier/recommended"
+  ]
+  // "rules": {
+  //   "@typescript-eslint/interface-name-prefix": "off",
+  //   "@typescript-eslint/explicit-function-return-type": "off",
+  //   "@typescript-eslint/explicit-module-boundary-types": "off",
+  //   "@typescript-eslint/no-explicit-any": "off",
+  //   "react/require-default-props": "off",
+  //   "no-undef": "off",
+  //   "no-unused-vars": "off",
+  //   "no-console": "off",
+  //   "no-unused-labels": "off",
+  //   "@typescript-eslint/no-unused-vars": [
+  //     "error",
+  //     {
+  //       "varsIgnorePattern": "^_",
+  //       "argsIgnorePattern": "^_"
+  //     }
+  //   ],
+  //   "@typescript-eslint/naming-convention": [
+  //     "error",
+  //     {
+  //       "selector": "variable",
+  //       "format": [
+  //         "camelCase",
+  //         "PascalCase",
+  //         "UPPER_CASE"
+  //       ],
+  //       "leadingUnderscore": "allow"
+  //     },
+  //     {
+  //       "selector": "function",
+  //       "format": [
+  //         "camelCase",
+  //         "PascalCase"
+  //       ]
+  //     },
+  //     {
+  //       "selector": "typeLike",
+  //       "format": [
+  //         "PascalCase"
+  //       ]
+  //     }
+  //   ]
+  // }
 }

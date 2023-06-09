@@ -1,7 +1,30 @@
 
+/*---------------------------*/
 
 USE next_js_crud;
 -- SET SQL_SAFE_UPDATES = 0;
+
+
+/*---------------------------*/
+
+CREATE TABLE User (
+  id int(11) NOT NULL AUTO_INCREMENT,
+  username varchar(250) NOT NULL,
+  email varchar(250) NOT NULL,
+  PRIMARY KEY (id)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+TRUNCATE TABLE User;
+DELETE FROM User;
+INSERT INTO User (username, email)  VALUES ('User 1', 'user.01@gmail.com');
+INSERT INTO User (username, email)  VALUES ('User 2', 'user.02@gmail.com');
+INSERT INTO User (username, email)  VALUES ('User 3', 'user.03@gmail.com');
+
+
+/*---------------------------*/
+
+
 
 CREATE TABLE produtos (
   id int(11) NOT NULL AUTO_INCREMENT,

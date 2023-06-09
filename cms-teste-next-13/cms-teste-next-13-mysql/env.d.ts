@@ -6,5 +6,6 @@ namespace NodeJS {
         MYSQL_DATABASE: string;
         MYSQL_USER: string;
         MYSQL_PASSWORD: string;
+        MYSQL_CONNECTION_URL: string;
     }
 }

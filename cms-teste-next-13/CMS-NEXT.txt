@@ -20,5 +20,20 @@ npm run server
 
 npm install eslint-plugin-react-hooks@next
 
+----------------------------------------------------
+npm install prisma --save-dev
+npm install @prisma/client
+
+npx prisma init
+npx prisma migrate dev --name init
+npx prisma migrate dev --name create-categories-and-tags-table
+npx prisma db seed
+
+npx prisma db pull
+
+npx prisma push
+npx prisma db push
+
+npm install --save-dev @builder.io/partytown
 
 ----------------------------------------------------

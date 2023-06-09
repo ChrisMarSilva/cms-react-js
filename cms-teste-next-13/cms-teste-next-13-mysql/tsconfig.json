@@ -38,7 +38,7 @@
     "src/pages/api/products.ts",
     "src/lib/db.ts",
     "env.d.ts"
-  ],
+, "src/app/teste2/contexts/appContext.tsx", "src/app/teste2/page.js"  ],
   "exclude": [
     "node_modules"
   ]
