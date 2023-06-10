@@ -1,13 +1,39 @@
-import { useContext } from 'react';
+import { useContext, useState, useMemo, } from 'react';
 
 import Alerta from "./Alert";
 import Navbar from "./Navbar";
 import UsersTable from "./UsersTable";
 import Pagination from "./Pagination";
 import AppContext from "../contexts/appContext";
+//import { Paginate } from '../helpers/paginate';
+import { Search } from '../helpers/search';
+
+let pageSize = 10; //const pageSize = 10;
 
 function Layout() {
     const value = useContext(AppContext);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState("");
+
+    // const onPageChange = page => setCurrentPage(page);
+    // let paginateUsers = Paginate(value.users, currentPage, pageSize);
+    //searchQueryResult = Search(value?.users, searchQuery);
+
+    let searchQueryResult = value?.users;
+    if (searchQuery.length > 0) {
+        value.setIsLoading(true);
+        searchQueryResult = Search(searchQueryResult, searchQuery);
+        value.setIsLoading(false);
+    }
+
+    const paginateUsers = useMemo(() => {
+        value.setIsLoading(true);
+        const firstPageIndex = (currentPage - 1) * pageSize;
+        const lastPageIndex = firstPageIndex + pageSize;
+        const result = searchQueryResult.slice(firstPageIndex, lastPageIndex);
+        value.setIsLoading(false);
+        return result;
+    }, [searchQuery, currentPage, value?.users, searchQueryResult]);
 
     return (
         <>
@@ -16,9 +42,12 @@ function Layout() {
                 <div className="table-responsive d-flex flex-column">
                     <Alerta />
                     <div className="table-wrapper">
-                        <Navbar />
-                        <UsersTable users={value.users} />
-                        <Pagination />
+                        <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+                        <UsersTable users={paginateUsers} isLoading={value?.isLoading} />
+                        <Pagination
+                            // usersCount={value?.users?.length} currentPage={currentPage} pageSize={pageSize} onPageChange={onPageChange}
+                            currentPage={currentPage} totalCount={searchQueryResult?.length} pageSize={pageSize} onPageChange={page => setCurrentPage(page)}
+                        />
                     </div>
                 </div>
             </div>

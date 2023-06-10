@@ -21,7 +21,25 @@ INSERT INTO User (username, email)  VALUES ('User 1', 'user.01@gmail.com');
 INSERT INTO User (username, email)  VALUES ('User 2', 'user.02@gmail.com');
 INSERT INTO User (username, email)  VALUES ('User 3', 'user.03@gmail.com');
 
+DROP PROCEDURE IF EXISTS insertRowsTostudent_data;
+DELIMITER //  
+CREATE PROCEDURE insertRowsTostudent_data()   
+BEGIN
+DECLARE i INT DEFAULT 1; 
+TRUNCATE TABLE User;
+WHILE (i <= 1000) DO
+    INSERT INTO User (username, email)  VALUES (CONCAT('User', i), CONCAT(CONCAT('user.', i), '@gmail.com'));
+    SET i = i+1;
+END WHILE;
+END;
+//  
+DELIMITER ;
 
+CALL insertRowsTostudent_data();
+
+ SELECT count(1) FROM User;
+ SELECT * FROM User LIMIT 10;
+ 
 /*---------------------------*/
 
 
@@ -62,3 +80,7 @@ CREATE TABLE tabela (
   CONSTRAINT `FKALERTA_TO_TIPO` FOREIGN KEY (`TIPO`) REFERENCES `TBALERTA_TP` (`CODIGO`),
   CONSTRAINT `FKALERTA_TO_USUARIO` FOREIGN KEY (`IDUSUARIO`) REFERENCES `TBUSUARIO` (`ID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+
+
+

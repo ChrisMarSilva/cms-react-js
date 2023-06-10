@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-function Navbar() {
+function Navbar({ searchQuery, setSearchQuery, }) {
     return (
         <>
             <div className="table-title">
@@ -18,7 +18,15 @@ function Navbar() {
                             <i className="material-icons">&#xE15C;</i>
                             <span>Delete</span>
                         </a>
-                        <input type="text" className="form-control" style={{ width: '200px', float: 'right', height: '34px' }} name="search_user" placeholder="Search a username..." />
+                        <input
+                            type="text"
+                            className="form-control"
+                            style={{ width: '200px', float: 'right', height: '34px' }}
+                            name="search_user"
+                            placeholder="Search a username..."
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
+                        />
                     </div>
                 </div>
             </div>

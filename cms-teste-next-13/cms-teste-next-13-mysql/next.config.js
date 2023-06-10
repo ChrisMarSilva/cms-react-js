@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    // experimental: {
-    //     nextScriptWorkers: true,
-    // },
+    compress: true,
+    experimental: {
+        // serverActions: true,
+        //     nextScriptWorkers: true,
+    },
 }
 
 module.exports = nextConfig

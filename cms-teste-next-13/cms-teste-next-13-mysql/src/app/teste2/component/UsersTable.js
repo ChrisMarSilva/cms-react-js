@@ -1,12 +1,22 @@
 import User from "./User";
 
-function UsersTable({ users }) {
+function UsersTable({ users, isLoading, }) {
 
     const userGenerator = () => {
         return (
             <>
-                {/* {!users || users?.length == 0 && <tr><td colSpan={4} className="text-center">Nenhum registro encontrado...</td></tr>} */}
-                {users && users?.length > 0 && users?.map(user => <User key={user.id} user={user} />)}
+                {
+                    users &&
+                    users?.length > 0 &&
+                    users?.map(user => {
+                        return (
+                            <User
+                                key={user.id}
+                                user={user}
+                            />
+                        )
+                    })
+                }
             </>
         )
     }
@@ -28,6 +38,8 @@ function UsersTable({ users }) {
                     </tr>
                 </thead>
                 <tbody>
+                    {isLoading && <tr><td colSpan={4} className="text-center">Carregando...</td></tr>}
+                    {!isLoading && (!users || users?.length == 0) && <tr><td colSpan={4} className="text-center">Nenhum registro encontrado...</td></tr>}
                     {userGenerator()}
                 </tbody>
             </table>

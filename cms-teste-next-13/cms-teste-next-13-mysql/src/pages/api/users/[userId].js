@@ -12,7 +12,8 @@ export default async function handler(req, res) {
             return await deleteUser(req, res);
 
         default:
-            return res.status(500).json("Não Implementado");
+            return res.status(405).end(); // Method not allowed
+        //return res.status(500).json("Não Implementado");
     }
 }
 

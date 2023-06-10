@@ -1,4 +1,4 @@
-function User({ user }) {
+function User({ user, }) {
     return (
         <>
             <tr key={user.id}>
