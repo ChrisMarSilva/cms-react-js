@@ -1,6 +1,33 @@
-import User from "./User";
+import { useState, useContext, } from 'react';
 
-function UsersTable({ users, isLoading, }) {
+import User from "./User";
+import CheckedContext from "../contexts/checkedContext";
+
+function UsersTable({ users, isLoading, checkedAll, setCheckedAll, handleDelete, handleEdit, }) {
+
+    const value = useContext(CheckedContext);
+
+    const handleSelectAllChange = (e) => {
+        const { checked } = e.target; // target or currentTarget
+
+        setCheckedAll(checked);
+        const checkboxes = document.querySelectorAll("table tbody input[type='checkbox']");
+        checkboxes.forEach(checkbox => checkbox.checked = checked);
+
+        let checkedAllUser = [];
+
+        if (checked) {
+            //setCheckedAll(true);
+            //const checkboxes = document.querySelectorAll("table tbody input[type='checkbox']");
+            //checkboxes.forEach(checkbox => checkbox.checked = true);
+            users?.map(user => checkedAllUser.push(user.id));
+        } else {
+            // setCheckedAll(false);
+            // value.setCheckedUser(checkedAllUser);
+        }
+
+        value.setCheckedUser(checkedAllUser);
+    }
 
     const userGenerator = () => {
         return (
@@ -13,6 +40,11 @@ function UsersTable({ users, isLoading, }) {
                             <User
                                 key={user.id}
                                 user={user}
+                                total={users.length}
+                                checkedAll={checkedAll}
+                                setCheckedAll={setCheckedAll}
+                                handleDelete={handleDelete}
+                                handleEdit={handleEdit}
                             />
                         )
                     })
@@ -28,7 +60,7 @@ function UsersTable({ users, isLoading, }) {
                     <tr>
                         <th>
                             <span className="custom-checkbox">
-                                <input type="checkbox" id="selectAll" />
+                                <input type="checkbox" id="selectAll" checked={checkedAll} onChange={(e) => handleSelectAllChange(e)} />
                                 <label htmlFor="selectAll"></label>
                             </span>
                         </th>

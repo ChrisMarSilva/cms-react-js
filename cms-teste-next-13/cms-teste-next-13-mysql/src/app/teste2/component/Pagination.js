@@ -9,12 +9,12 @@ function Pagination({ currentPage, totalCount, pageSize, onPageChange, siblingCo
 
     const paginationRange = usePagination({ currentPage, totalCount, siblingCount, pageSize });
 
-    if (currentPage === 0 || paginationRange.length < 2) return null;
+    if (currentPage === 0 || paginationRange?.length < 2) return null;
 
     const onNext = () => onPageChange(currentPage + 1);
     const onPrevious = () => onPageChange(currentPage - 1);
 
-    let lastPage = paginationRange[paginationRange.length - 1];
+    let lastPage = paginationRange[paginationRange?.length - 1];
 
     return (
         <>

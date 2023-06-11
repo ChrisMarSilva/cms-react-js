@@ -13,10 +13,19 @@ export default async function handler(req, res) {
 
 const deleteMulti = async (req, res) => {
     try {
-        const { ids } = req.body;
-        const where = { id: { in: parseInt(ids) } };
+        let ids;
+        ids = req.body?.ids;
+        if (!ids) {
+            let lista = req.headers['x-ids'];
+            lista = String(lista ?? '');
+            ids = lista.split(',').map(item => parseInt(item));
+            //console.log(ids)
+            //console.log(typeof ids)
+        }
+        if (!ids) return res.status(200).json("No body");
+        const where = { id: { in: ids } };
         await prisma.User.deleteMany({ where: where });
-        return res.status(200).json({ success: true });
+        return res.status(200).json({ success: true, ids: ids });
     } catch (error) {
         return res.status(500).json(error.message);
     }

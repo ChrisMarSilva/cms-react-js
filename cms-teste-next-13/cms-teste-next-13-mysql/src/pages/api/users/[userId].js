@@ -40,9 +40,9 @@ const updateUser = async (req, res) => {
         const { username, email } = req.body;
         const where = { id: parseInt(userId) };
         const data = { username: username, email: email };
-        const result = await prisma.User.update({ where: where, data: data, select: { '*': true } });
+        const result = await prisma.User.update({ where: where, data: data });
         // const result = await prisma.user.upsert({where: {email: 'viola@prisma.io',},update: {name: 'Viola the Magnificent',},create: {email: 'viola@prisma.io',name: 'Viola the Magnificent',},})
-        return res.status(200).json(result); // json({ userId, username, email });
+        return res.status(200).json({ userId, username, email });
     } catch (error) {
         return res.status(500).json(error.message);
     }

@@ -1,10 +1,13 @@
+import million from 'million/compiler';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    compress: true,
+    reactStrictMode: true,
     experimental: {
         // serverActions: true,
         //     nextScriptWorkers: true,
     },
-}
+};
 
-module.exports = nextConfig
+//module.exports = nextConfig
+export default million.next(nextConfig);

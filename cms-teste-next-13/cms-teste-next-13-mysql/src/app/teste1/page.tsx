@@ -83,7 +83,7 @@ const Teste1 = () => { // export default function Teste1() {
     setProducts(productsStateAfterUpdate);
   }
 
-  async function deleteProduct(id: number) {
+  async function deleteProduct(id: string | undefined) {
     setDeletedError(false);
     if (!id) return;
 

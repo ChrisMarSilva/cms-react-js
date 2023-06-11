@@ -17,6 +17,7 @@
     "eslint": "8.42.0",
     "eslint-config-next": "13.4.4",
     "eslint-plugin-react-hooks": "^5.0.0-canary-910045696-20230607",
+    "million": "^2.4.4",
     "mysql2": "^3.3.3",
     "next": "13.4.4",
     "postcss": "8.4.24",
@@ -31,6 +32,7 @@
   },
   "devDependencies": {
     "@builder.io/partytown": "^0.8.0",
-    "@types/react": "^18.2.9"
+    "@types/react": "^18.2.9",
+    "babel-preset-env": "^1.7.0"
   }
 }
