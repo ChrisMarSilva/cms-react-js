@@ -1,0 +1,24 @@
+
+----------------------------------------------------
+
+npm install prisma --save-dev
+
+npm install --save sequelize
+
+npm install typeorm --save
+npm install reflect-metadata --save
+
+npm install mysql --save (you can install mysql2 instead as well)
+npm install mysql2 --save
+npm install mariadb --save
+npm install pg --save
+npm install sqlite3 --save
+npm install mssql --save # Microsoft SQL Server
+$ npm install --save tedious # Microsoft SQL Server
+npm install sql.js --save
+npm install oracledb --save # Oracle Database
+npm install mongodb@^5.2.0 --save
+
+
+
+----------------------------------------------------
