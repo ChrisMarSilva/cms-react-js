@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CMS Teste</title>
+</head>
+
+<body>
+
+    <h1>Gráfico de Controle de Liquidez</h1>
+
+    <table style="width:100%">
+        <tr>
+            <td style="width:50%">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th width="100">Horário</th>
+                            <th width="150">Total</th>
+                            <th width="150">Saldo</th>
+                        </tr>
+                    </thead>
+                    <tbody id="DivTable">
+                    </tbody>
+                </table>
+
+            </td style="width:50%">
+            <td>
+
+                <div>
+                    <!-- <canvas id="DivChart"></canvas> -->
+                    <canvas id="DivChart" style="width:700px; height:400px;"></canvas>
+                </div>
+
+            </td>
+        </tr>
+    </table>
+
+    <script type="text/javascript" src="./jquery-3.7.0.min.js"></script>
+    <script type="text/javascript" src="./axios_1.4.0.min.js"></script>
+    <!-- <script type="text/javascript" src="./moment-2.29.4.min.js"></script> -->
+    <!-- <script type="text/javascript" src="./moment-2.29.4-with-locales.min.js"></script> -->
+    <!-- <script type="text/javascript" src="./moment-2.29.4_locale_pt-br.min.js"></script> -->
+    <script type="text/javascript" src="./chartjs-4.3.0.min.js"></script>
+
+    <script type="text/javascript">
+
+        const ctx = $('#DivChart'); // document.getElementById('DivChart');
+
+        var formatter = new Intl.NumberFormat("pt-BR", {
+            style: "currency", // decimal // currency // percent
+            currency: "BRL",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+        });
+
+        var data = {
+            labels: [],
+            datasets: [{
+                data: [],
+                fill: false,
+                borderWidth: 2,
+                // borderColor: 'red',
+                // backgroundColor: 'transparent',
+                pointRadius: 5,
+                tension: 0.5,
+
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointHitRadius: 10,
+            }],
+        };
+
+        const options = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                tooltip: {
+                    enabled: false,
+                    usePointStyle: true,
+                    titleAlign: 'center',
+                    // titleColor: 'gold',
+                    titleSpacing: 3,
+                    TitleFont: {
+                        weight: 'bold'
+                    },
+                    backgroundColor: 'midnightblue',
+                    // bodyColor: 'orange',
+                    bodyAlign: 'center',
+                    bodyFont: {
+                        weight: 'italic'
+                    },
+                    external: function (context) {
+                        let tooltipEl = document.getElementById('chartjs-tooltip'); // Tooltip Elementx
+                        if (!tooltipEl) { // Create element on first render
+                            tooltipEl = document.createElement('div');
+                            tooltipEl.id = 'chartjs-tooltip';
+                            tooltipEl.innerHTML = '<table></table>';
+                            document.body.appendChild(tooltipEl);
+                        }
+                        const tooltipModel = context.tooltip;  // Hide if no tooltip
+                        if (tooltipModel.opacity === 0) {
+                            tooltipEl.style.opacity = 0;
+                            return;
+                        }
+                        tooltipEl.classList.remove('above', 'below', 'no-transform'); // Set caret Position
+                        if (tooltipModel.yAlign) {
+                            tooltipEl.classList.add(tooltipModel.yAlign);
+                        } else {
+                            tooltipEl.classList.add('no-transform');
+                        }
+                        function getBody(bodyItem) {
+                            return bodyItem.lines;
+                        }
+                        if (tooltipModel.body) { // Set Text
+                            const titleLines = tooltipModel.title || [];
+                            const bodyLines = tooltipModel.body.map(getBody);
+                            let innerHtml = '<thead>';
+                            titleLines.forEach(function (title) {
+                                innerHtml += '<tr><th>' + title + '</th></tr>';
+                            });
+                            innerHtml += '</thead><tbody>';
+                            bodyLines.forEach(function (body, i) {
+                                const colors = tooltipModel.labelColors[i];
+                                let style = 'background:' + colors.backgroundColor;
+                                style += '; border-color:' + colors.borderColor;
+                                style += '; border-width: 2px';
+                                const span = '<span style="' + style + '">' + body + '</span>';
+                                innerHtml += '<tr><td>' + span + '</td></tr>';
+                            });
+                            innerHtml += '</tbody>';
+                            let tableRoot = tooltipEl.querySelector('table');
+                            tableRoot.innerHTML = innerHtml;
+                        }
+                        const position = context.chart.canvas.getBoundingClientRect();
+                        const bodyFont = Chart.helpers.toFont(tooltipModel.options.bodyFont);
+                        tooltipEl.style.opacity = 1;  // Display, position, and set styles for font
+                        tooltipEl.style.position = 'absolute';
+                        tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+                        tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+                        tooltipEl.style.font = bodyFont.string;
+                        tooltipEl.style.padding = tooltipModel.padding + 'px ' + tooltipModel.padding + 'px';
+                        tooltipEl.style.pointerEvents = 'none';
+                    },
+                    callbacks: {
+                        labelPointStyle: function (context) {
+                            return {
+                                pointStyle: 'circle', // circle // triangle
+                                rotation: 0
+                            };
+                        },
+                        label: function (context) {
+                            let label = context.dataset.label || '';
+                            if (label) label += ': ';
+                            if (context.parsed.y !== null) label += formatter.format(context.parsed.y);
+                            return label;
+                        },
+                        labelColor: function (context) {
+                            return {
+                                // borderColor: 'rgb(0, 0, 255)',
+                                // backgroundColor: 'rgb(255, 0, 0)',
+                                borderWidth: 2,
+                                borderDash: [2, 2],
+                                borderRadius: 2,
+                            };
+                        },
+                        // labelTextColor: function (context) {
+                        //     return 'black';
+                        // },
+                    },
+                },
+
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        autoSkip: false,
+                        maxRotation: 30,
+                        minRotation: 30,
+                    },
+                    grid: {
+                        display: true,
+                    },
+
+                },
+                y: {
+                    grid: {
+                        display: true,
+                    },
+                },
+
+                /*
+                xAxes: [{
+                    type: 'time',
+                    time: {
+                        unit: 'minute',
+                        displayFormats: {
+                            minute: 'HH:mm',
+                        },
+                        tooltipFormat: 'HH:mm',
+                    },
+                }],
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    },
+                }],
+                */
+            }
+        };
+
+        const config = {
+            type: 'line',
+            data: data,
+            options: options,
+        };
+
+        var myChart = new Chart(ctx, config);
+
+        const api = axios.create({
+            baseURL: 'http://localhost:3001/',
+            responseType: 'json',
+            timeout: 1000 * 30,
+        });
+
+        // api.interceptors.request.use(config => {
+        //     console.log(config)
+        //     return config
+        // });
+
+        api.defaults.headers['Accept'] = 'application/json';
+        api.defaults.headers['cache-control'] = 'no-cache';
+        api.defaults.headers['Access-Control-Allow-Origin'] = '*';
+
+        $(document).ready(function () {
+            buscarDados();
+        });
+
+        const buscarDados = async () => {
+            try {
+
+                // promise = new Promise( (resolve, reject) => {
+                // resolve(true);
+                // // reject("aaaaaaaaaaaa") // reject(new Error("aaaaaaaaaaaa!"));
+                // })
+                // .then( txt => {
+                // 	//console.log('Sucesso: ' + txt);
+                // })
+                // .catch( txt => {
+                // 	fCriarAlerta("AreaAlertaPrinc",TP_ALERTA_ERRO, MSG_ALERTA_ERRO); 
+                // });
+
+                const response = await api.get('grafico');
+                // console.log(response.data)
+
+                const resultado = response.data.data.Resultado;
+                const mensagem = response.data.data.Mensagem;
+                //console.log(`resultado: ${resultado} - mensagem: ${mensagem}`)
+
+                if (resultado == "NSESSAO") {
+                    $(location).attr('href', '/login');
+                    return false;
+                }
+
+                if ((resultado == "NOK") || (resultado == "FALHA") || (resultado != "OK")) {
+                    // finalizarAnimacaoPesquisa();
+                    $('#DivTable').empty(); // fLimparSomenteGrid(urlPadrao);
+                    if (resultado == "NOK") alert(mensagem); // fCriarAlertaPrinc(TP_ALERTA_AVISO, mensagem);
+                    if (resultado == "FALHA") alert(mensagem); // fCriarAlertaPrinc(TP_ALERTA_ERRO, mensagem); 
+                    if (resultado != "OK") alert(mensagem); // fCriarAlertaPrinc(TP_ALERTA_ERRO, mensagem); 
+                    return;
+                }
+
+                const lista = response.data.data.Lista;
+                //console.log(lista)
+
+                montarTable(lista);
+                montarGrafico(lista);
+
+            } catch (error) {
+                console.error(error);
+                let errorMessage = 'Falha geral na requisição';
+                if (axios.isAxiosError(err)) {
+                    if (!err?.response) { errorMessage = 'Nenhuma resposta do servidor'; }
+                    else if (err.response) { errorMessage = `${err.response.data.Descricao}`; }
+                    else if (err.request) { errorMessage = `${err.request}`; }
+                    else if (err instanceof Error) { errorMessage = err.message; }
+                } else {
+                    if (err instanceof Error) { errorMessage = err.message; }
+                }
+                // finalizarAnimacaoPesquisa();
+                $('#DivTable').empty(); // fLimparSomenteGrid( urlPadrao );
+                alert(errorMessage); // fCriarAlertaPrinc(TP_ALERTA_ERRO, MSG_ALERTA_ERRO)
+            }
+        }
+
+        const montarTable = async (lista) => {
+            try {
+
+                var DivTable = $('#DivTable');
+                DivTable.empty(); // DivTable.html('');
+
+                let content = '';
+
+                if (lista && lista.length > 0) {
+                    $.each(lista, function (index, value) {
+                        const horario = value[0];
+                        const total = parseFloat(value[1]).toFixed(2);
+                        const saldo = parseFloat(value[2]).toFixed(2);
+
+                        content += '<tr align="center" style="font-weight: bold; font-size: 12px;">';
+                        content += '<td>' + horario + '</td>';
+                        content += '<td>' + formatter.format(total) + '</td>';
+                        content += '<td>' + formatter.format(saldo) + '</td>';
+                        content += '</tr>';
+                    });
+                }
+
+                DivTable.append(content);
+
+            } catch (error) {
+                console.error("Erro montarTable");
+                console.error(error);
+                alert(error);
+            }
+        }
+
+        const montarGrafico = async (lista) => {
+            try {
+
+                let grafLabels = [];
+                let grafData = [];
+
+                if (lista && lista.length > 0) {
+                    $.each(lista, function (index, value) {
+                        const horario = value[0];
+                        const total = parseFloat(value[1]).toFixed(2);
+                        const saldo = parseFloat(value[2]).toFixed(2);
+
+                        //  callback: value => {
+                        //     date = moment.utc(value);
+                        //     if(date.diff(moment.utc('1970-01-01 23:59:59'), 'minutes') === 0)  { return null; };
+                        //     date.format('HH:mm:ss');
+                        // }
+                        // label: (item, data) => data.datasets[item.datasetIndex].label +" "+ 
+                        // moment.utc(data.datasets[item.datasetIndex].data[item.index]).format("HH:mm:ss")
+
+                        grafLabels.push(horario); // moment().format("YYYY-MM-DD") // moment(date, "DD/MM").format("DD MMM");
+                        grafData.push(saldo);
+                        // myChart.data.datasets[0].lines[index].value = saldo;
+                        // grafData.push({x:dateObject, y:parseFloat(val.sa_quantity)});
+                    });
+                }
+
+                // grafLabels = 'Reddd';
+                // grafLabels = ['"07:30:00', ...., '18:30:00'];
+                // grafLabels = ['Cor1', 'Cor2', 'Cor3', 'Cor4', 'Cor5', 'Cor6', 'Cor7', 'Cor8', 'Cor9', 'Cor10', 'Cor11', 'Cor12'];
+                // chartOptions.data.labels = labels;
+
+                //const moonLanding = new Date('July 20, 69 20:17:40 GMT+00:00');
+                //console.log(moonLanding.getTime()); //  Expected output: -14182940000
+
+                // grafData = [12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2, 3];
+                // grafData = [{ x: '2021-11-06 23:39:30', y: 50 }, { x: '2021-11-07 01:00:28', y: 60 }, { x: '2021-11-07 09:00:28', y: 20 }];
+                // grafData = [
+                //     { "x": 1647281788963, "y": 22.9 },
+                //     { "x": 1647281994496, "y": 26.9 },
+                //     { "x": 1647282200029, "y": 21.9 },
+                //     { "x": 1647282405562, "y": 24.9 },
+                //     { "x": 1647282611094, "y": 28.9 }
+                // ];
+                //  {x:1588353429.6027,y:400},
+                //  {t: '2015-03-15T13:03:00Z',y: 12},
+                // data.forEach((o) => o.x *= 1000);
+
+                // const data = {
+                //     labels: grafLabels,
+                //     datasets: [{
+                //         data: grafData,
+                //         fill: false,
+                //         borderWidth: 2,
+                //         borderColor: 'red',
+                //         backgroundColor: 'transparent',
+                //         pointRadius: 3,
+                //         tension: 0.5,
+                //     }],
+                // };
+
+                myChart.data.labels = grafLabels;
+                myChart.data.datasets[0].data = grafData;
+                myChart.update();
+
+            } catch (error) {
+                console.error("Erro montarGrafico");
+                console.error(error);
+                alert(error);
+            }
+        }
+
+        // setInterval(function () {
+
+        //     const randomNumberMin = 1;
+        //     const randomNumberMax = 12;
+        //     const randomNumber = Math.floor(Math.random() * (randomNumberMax - randomNumberMin + 1)) + randomNumberMin;
+
+        //     const Horas = {
+        //         1: "07:30:00",
+        //         2: "08:30:00",
+        //         3: "09:30:00",
+        //         4: "10:30:00",
+        //         5: "11:30:00",
+        //         6: "12:30:00",
+        //         7: "13:30:00",
+        //         8: "14:30:00",
+        //         9: "15:30:00",
+        //         10: "16:30:00",
+        //         11: "17:30:00",
+        //         12: "18:30:00",
+        //     };
+
+        //     let horario = '';
+        //     try {
+        //         horario = Horas[randomNumber];
+        //     } catch (error) {
+        //         horario = "07:30:00";
+        //     }
+
+        //     const randomValorMin = 1000000;
+        //     const randomValorMax = 10000000;
+        //     const randomValor = Math.floor(Math.random() * (randomValorMax - randomValorMin + 1)) + randomValorMin;
+        //     //console.log(`randomNumber: ${randomNumber} - horario: ${horario} - randomValor: ${randomValor}`);
+
+        //     myChart.data.datasets[0].data[randomNumber] = randomValor;
+        //     var time = new Date();
+        //     // var now = new moment();
+        //     // console.log(now.format("HH:mm:ss")); //  moment().format('h:mm:ss a')
+        //     // console.log( ("0" + time.getHours()).slice(-2)   + ":" +  ("0" + time.getMinutes()).slice(-2) + ":" +  ("0" + time.getSeconds()).slice(-2));
+        //     // myChart.data.labels[randomNumber] = time.toLocaleString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true, });
+        //     myChart.data.labels[randomNumber] = time.toLocaleTimeString('pt-BR', { hour12: false, });
+        //     // myChart.data.labels[randomNumber] = time.toLocaleTimeString();
+        //     myChart.update();
+
+        //     // let grafData = [];
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // grafData.push(Math.floor(Math.random() * 10) + 1);
+        //     // myChart.data.datasets[0].data = grafData;
+        //     // myChart.update();
+
+        // }, 1000);
+
+    </script>
+
+</body>
+
+</html>
