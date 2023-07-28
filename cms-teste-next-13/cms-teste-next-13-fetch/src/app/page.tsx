@@ -10,6 +10,7 @@ export default function HomePage() {
     <main>
       <h1>Home Page</h1>
       <p><Link href="/users">Users</Link></p>
+      <p><Link href="/tests">Tests</Link></p>
     </main>
   )
 }
