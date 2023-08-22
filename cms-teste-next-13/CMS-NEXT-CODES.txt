@@ -669,7 +669,7 @@ useForm({ defaultValues: { email: "default@example.com" } })
           children: React.ReactNode;
 }
 
-        const Home = async ({children}: HomeProps) => {
+const Home = async ({children}: HomeProps) => {
   return (
         <>
           <h1>Home</h1>

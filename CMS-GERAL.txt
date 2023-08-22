@@ -53,6 +53,10 @@ npm install --save mysql2
 npm install -g sass 
 npm install react-icons --save
 
+npm install crypto-js
+npm i crypto-js --save
+npm i @types/crypto-js --save
+
 ----------------------------------------------------
 
 npm run build
