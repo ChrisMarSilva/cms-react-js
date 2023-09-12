@@ -79,3 +79,735 @@ npm start
 ----------------------------------------------------
 
 ----------------------------------------------------
+
+console.clear()
+
+const arr = new Array(10).fill(Math.random()); // 10 // 50 // 100 // 1000 // 100000
+// console.log(arr)
+
+console.log(`length: ${arr.length}`)
+
+console.time('for')
+for (let i = 0; i < arr.length; i++) {}
+console.timeEnd('for')
+
+console.time('forEach')
+arr.forEach(() => '')
+console.timeEnd('forEach')
+
+console.time('for of')
+for (let i of arr) {}
+console.timeEnd('for of')
+
+console.time('for in')
+for (let i in arr) {}
+console.timeEnd('for in')
+
+console.time('while')
+let i = 0;
+while (i < arr.length) {
+  i++;
+}
+console.timeEnd('while')
+
+
+/*
+
+
+length : 10
+while  : 0.089111328125 ms
+for in : 0.10595703125  ms
+forEach: 0.1103515625   ms
+for of : 0.11767578125  ms
+for    : 0.587158203125 ms
+
+length  : 50
+forEach : 0.1240234375 ms
+for     : 0.239013671875 ms
+for of  : 0.240234375 ms
+while   : 0.31298828125 ms
+for in  : 0.4970703125 ms
+
+length  : 100
+forEach : 0.15283203125 ms
+while   : 0.183837890625 ms
+for in  : 0.22509765625 ms
+for     : 0.258056640625 ms
+for of  : 0.310791015625 ms
+
+length  : 1.000
+while   : 1.136962890625 ms
+for in  : 1.87109375 ms
+for     : 2.0771484375 ms
+for of  : 2.218994140625 ms
+forEach : 2.9541015625 ms
+
+length : 100.000
+forEach: 2.544921875 ms
+while  : 32.242919921875 ms
+for of : 35.3330078125 ms
+for    : 48.5 ms
+for in : 52.621826171875 ms
+
+*/
+
+
+ {Array.of("Trabalho", "Trabalho", "Estudos").forEach((item) => {
+                    return (
+                        <li>
+                            <div>{item}</div>
+                            <CardNota />
+                        </li>
+                    );
+                })}
+
+
+export const App = () => {
+  const countries = ['USA', 'Canada', 'Australia', 'Japan', 'India']
+  return(
+   <>
+    {countries.forEach(country => {
+      return <div>{country}</div> //does not work
+    })}
+   </>
+  )
+}
+export default App
+
+
+
+import { ReactElement } from "react"
+export const App = () => {
+  const countries = ['USA', 'Canada', 'Australia', 'Japan', 'India']
+  let forEachCountries: ReactElement[] = []
+
+  const getForEachCountries = (): ReactElement[] => {
+    countries.forEach(country => {
+      forEachCountries.push(<li>{country}</li>)
+    })
+    return forEachCountries
+  }
+  return(
+   <ul>
+      {getForEachCountries()}
+   </ul>
+  )
+}
+export default App
+
+
+
+export const App = () => {
+  const countries = ['USA', 'Canada', 'Australia', 'Japan', 'India']
+  return(
+   <ul>
+      {countries.map((country) => {
+        return <li>{country}</li>
+      })}
+   </ul>
+  )
+}
+export default App
+
+
+
+
+
+const meuArrayIncrivel = [1, 2, 3, 4, 5]
+
+const inicioForEach = performance.now()
+meuArrayIncrivel.forEach(x => (x + x) * 10000000000)
+const finalForEach = performance.now()
+console.log(`Velocidade do [forEach]: ${finalForEach - inicioForEach} milisegundos`)
+
+const inicioMap = performance.now()
+meuArrayIncrivel.map(x => (x + x) * 10000000000)
+const finalMap = performance.now()
+console.log(`Velocidade do [map]: ${finalMap - inicioMap} milisegundos`)
+
+
+
+
+const startTime = performance.now();
+for (let i = 0; i < 100; i++) {
+  console.log("Hi!");
+}
+const finishTime = performance.now();
+console.log(`It took me ${finishTime - startTime} milliseconds to say "hi" a 1000 times!`
+);
+
+
+
+--------------
+
+
+Seeding the database
+We want to add some categories and tags before we launch the application so we can have predefined values. To do that, we need to seed the database with data.
+
+Let's create a file seed.ts inside the folder prisma and add the code below:
+
+
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+async function main() {
+  await prisma.category.createMany({
+    data: [{ name: 'Computers' }, { name: 'TV' }, { name: 'Storage' }, { name: 'Accessories' }],
+    skipDuplicates: true,
+  });
+
+  await prisma.tag.createMany({
+    data: [{ name: 'Apple' }, { name: 'IOS' }, { name: 'SSD' }, { name: 'Keyboard' }, { name: 'USB' }],
+    skipDuplicates: true,
+  });
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+
+
+
+Insert the data
+Inserting data is straightforward with the Prisma client. Create a file insert-data.ts inside the src folder and add the code below:
+
+
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
+
+async function main() {
+  const insertResult = await prisma.tag.createMany({
+    data: [{ name: 'Television' }, { name: 'Radio' }, { name: 'Printer' }],
+  });
+
+  console.log(insertResult.count); // 3
+
+  const productCreated = await prisma.product.create({
+    data: {
+      name: 'Smart TV Full HD 40 Inch',
+      slug: 'smart-tv-full-hd-40-inch',
+      isAvailable: true,
+      price: 455,
+      extras: {
+        width: 168,
+        height: 109,
+        energy: 'Class A+',
+      },
+      pictures: {
+        'picture_one.png': 'picture_one_storage_path',
+        'picture_two.png': 'picture_two_storage_path',
+      },
+      categoryId: 1, // Exist in the database from the seed
+    },
+  });
+
+  console.log(productCreated);
+
+  const productWithTagsCreated = await prisma.product.create({
+    data: {
+      name: 'Macbook Pro 2020 16 Inch',
+      slug: 'macbook-pro-2020-16-inch',
+      isAvailable: true,
+      price: 2799,
+      extras: {
+        storage: '512GB',
+        memory: '16GB',
+        hasThunderbolt: true,
+        osVersion: 11.2,
+      },
+      visibility: 'FEATURED',
+      pictures: {
+        'picture_one.png': 'picture_one_storage_path',
+        'picture_two.png': 'picture_two_storage_path',
+      },
+      categoryId: 1,
+      productTags: {
+        createMany: {
+          data: [{ tagId: 1 }, { tagId: 2 }],
+        },
+      },
+    },
+    include: {
+      productTags: true, // include product tags in the object returned
+      category: true, // also include category
+    },
+  });
+
+  console.log(productWithTagsCreated);
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
+
+Execute the code in the file above by running the command below:
+
+
+yarn ts-node src/insert-data.ts
+
+We get the following output.
+
+Insert data in the database using Prisma
+Insert data in the database using Prisma
+Note: the property reference in the product has a value, yet we didn't provide one when inserting the data. It is because we defined it as auto-generated with a random UUID.
+
+Update the data
+Create a file update-data.ts inside the src folder and add the code below:
+
+
+const categoriesUpdated = await prisma.category.updateMany({
+  where: {
+    name: {
+      contains: 'Iphone',
+    },
+  },
+  data: {
+    name: 'Apple Iphone',
+  },
+});
+
+console.log(categoriesUpdated.count); // 2
+
+const productUpdated = await prisma.product.update({
+  where: {
+    id: 2,
+  },
+  data: {
+    viewCount: {
+      increment: 1, // increment by one the current value of viewCount
+    },
+    isAvailable: true,
+    visibility: 'DEAL',
+  },
+  include: {
+    category: true,
+  },
+});
+
+console.log(productUpdated);
+  
+Run the file with the command ts-node src/update-data.ts and see the output.
+
+Delete the data
+Create a file delete-data.ts inside the src folder and add the code below:
+
+
+const tagDeleted = await prisma.tag.delete({
+  where: {
+    name: 'Iphone',
+  },
+});
+
+console.log(tagDeleted);
+
+const productsDeleted = await prisma.product.deleteMany({
+  where: {
+    viewCount: {
+      lt: 5,
+    },
+    visibility: {
+      in: ['VISIBLE', 'HIDDEN'],
+    },
+    OR: {
+      isAvailable: false,
+    },
+  },
+});
+
+console.log(productsDeleted.count);
+  
+// Delete all products
+await prisma.product.deleteMany();
+
+Run the file with the command ts-node src/delete-data.ts and see the output.
+
+Retrieve data
+Create a file retrieve-data.ts inside the src folder and add the code below:
+
+
+const tagFound = await prisma.tag.findUnique({
+  where: {
+    name: 'Iphone',
+  },
+});
+
+console.log(tagFound);
+
+const category = await prisma.category.findFirst({
+  where: {
+    products: {
+      some: {
+        viewCount: {
+          gt: 100,
+        },
+      },
+    },
+  },
+  orderBy: {
+    createdAt: 'desc',
+  },
+});
+
+console.log(category);
+
+// Find all tags
+const allTags = await prisma.tag.findMany();
+
+console.log(allTags);
+
+// Select a subset of fields
+const partialProduct = await prisma.product.findUnique({
+  where: {
+    id: 2,
+  },
+  select: {
+    id: true,
+    name: true,
+    reference: true,
+  },
+});
+
+console.log(partialProduct);
+
+// Find distinct category
+const distinctCategories = await prisma.category.findMany({
+  where: {
+    products: {
+      some: {
+        visibility: {
+          notIn: ['VISIBLE', 'FEATURED'],
+        },
+      },
+    },
+  },
+  distinct: ['name'],
+});
+
+console.log(distinctCategories);
+
+
+
+
+
+Access to fetch at 'https://cmsnextjscrudmysql-chrismarsilva.vercel.app/api/users' 
+from origin 'https://cmsnextjscrudmysql-4l3u32idq-chrismarsilva.vercel.app'
+has been blocked by CORS policy:
+ Response to preflight request doesn't pass access control check:
+ No 'Access-Control-Allow-Origin' header is present on the requested resource. 
+If an opaque response serves your needs, set the request's mode to 'no-cors' 
+to fetch the resource with CORS disable
+
+  const response = await fetch(remoteServerUrl, config);
+
+
+// next.config.js
+module.exports = {
+    async rewrites() {
+        return [
+          {
+            source: '/api/:path*',
+            destination: 'https://api.example.com/:path*',
+          },
+        ]
+      },
+  };
+
+
+import NextCors from 'nextjs-cors';
+
+async function handler(req, res) {
+   // Run the cors middleware
+   // nextjs-cors uses the cors package, so we invite you to check the documentation https://github.com/expressjs/cors
+   await NextCors(req, res, {
+      // Options
+      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      origin: '*',
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+   });
+
+   // Rest of the API logic
+   res.json({ message: 'Hello NextJs Cors!' });
+}
+
+
+  app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+  if (req.method == "OPTIONS") {
+    res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
+    return res.status(200).json({});
+  }
+
+
+{
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Access-Control-Allow-Credentials", "value": "true" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" },
+        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" },
+        { "key": "Access-Control-Allow-Headers", "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version" }
+      ]
+    }
+  ]
+}
+
+
+fetch("https://api.mybank.com/account_details", {
+    method: "GET",
+    credentials: "include",
+})
+
+
+
+// pages/api/example.js
+
+import nc from "next-connect";
+import cors from "cors";
+
+const handler = nc()
+  // use connect based middleware
+  .use(cors())
+  .post(async (req, res) => {
+    const response = await fetch(remoteServerUrl, config);
+    res.json(response);
+  });
+
+export default handler;
+
+
+
+import NextCors from 'nextjs-cors';
+
+async function handler(req, res) {
+   await NextCors(req, res, {
+      methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+      origin: '*',
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+   });
+
+   // Rest of the API logic
+   res.json({ message: 'Hello NextJs Cors!' });
+}
+
+
+import NextCors from 'nextjs-cors';
+
+function withNextCors(
+  handler: NextApiHandler,
+): NextApiHandler {
+  return async function nextApiHandlerWrappedWithNextCors(req, res) {
+
+    const methods = ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'];
+    await NextCors(req, res, {
+      methods,
+      origin: CORS_ALLOWED_ORGIN,
+      optionsSuccessStatus: 200,
+    });
+
+    return handler(req, res);
+  };
+}
+
+
+import { DataTypes } from "sequelize";
+import NextCors from 'nextjs-cors';
+
+import {
+  sequelize,
+} from "../../../../../db";
+
+import { withNextCorsSessionRoute } from "../../../../withSession";
+import validateUser, { UserValidationResult } from "../../../../validateUser";
+import { CreateUserRequest } from "../../../../../schemas/user";
+
+// import { CORS_ALLOWED_ORGIN } from "../../../../environment";
+
+const User = require('../../../../../models/user')(sequelize, DataTypes);
+
+// $curl -X POST -H 'Content-Type: application/json' -d '{"facialId":"test", "name":"name", "email":"email@example.com"}'  http://localhost:3000/api/v1/user/register
+export default withNextCorsSessionRoute(async (req, res) => {
+  await NextCors(req, res, {
+    // Options
+    methods: ['POST'],
+    origin: CORS_ALLOWED_ORGIN,
+    optionsSuccessStatus: 200,
+  });
+
+  if (req.method !== "POST") {
+    res.status(405).send(""); // Incorrect request method
+    return;
+  }
+
+  const { 
+    facialId, 
+    name, 
+    email,
+  } = req.body as CreateUserRequest;
+
+  const dbUserByFacialId = await User.findOne({
+    where: {
+      facialId
+    }
+  });
+
+  if (dbUserByFacialId === null) {
+    let userValidationResult = validateUser(name, email);
+
+    if (userValidationResult === UserValidationResult.None) {
+      const dbUserByEmail = await User.findOne({
+        where: {
+          email
+        }
+      });
+
+      if (dbUserByEmail !== null) {
+        userValidationResult = UserValidationResult.TakenEmail;
+      }
+    }
+
+    if (userValidationResult !== UserValidationResult.None) {
+      res.status(400).send(userValidationResult);
+      return;
+    }
+
+    const newUser = await User.create({
+      facialId,
+      name,
+      email,
+    });
+
+    res.status(200).send(userValidationResult);
+  } else {
+    res.status(400).send(UserValidationResult.TakenFacialId);
+  }
+});
+
+
+--------------------
+
+
+import Script from 'next/script'
+import './globals.css'
+import { Inter } from 'next/font/google'
+
+const inter = Inter({ subsets: ['latin'] })
+
+export const metadata = {
+  title: 'Create Next App',
+  description: 'Generated by create next app',
+}
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <Script strategy='afterInteractive'>{`
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:3553114,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');`}
+      </Script>
+      <body className={inter.className}>{children}</body>
+    </html>
+  )
+}
+
+import Image from "next/image";
+
+export default function Home() {
+  return (
+    <main>
+      <img src="/puppy.jpg" alt="puppy" />
+      <Image src='/puppy.jpg' alt="puppy with Image component" width={640} height={681} />
+      <Image src='/puppy-compressed.jpg' alt="puppy with Image component and compression" width={640} height={681} />
+    </main>
+  )
+}
+
+
+
+---------------
+
+
+'use client'
+import dynamic from 'next/dynamic';
+import { FormEvent, useState } from 'react'; // import Modal from './Modal';
+
+const DynamicModal = dynamic(() => import('./Modal'), { ssr: false });
+
+const Page = () => {
+
+    const submission = async (event: FormEvent) => {
+        event.preventDefault()
+        const formData = new FormData()
+        formData.append('name', name)
+    }
+
+    return (
+<>
+	<p>Page</p>
+            {isModalOpen &&	<DynamicModal onClose={handleCloseModal}/>}
+</>
+    )
+}
+
+export default Page
+
+
+
+'use client'
+interface ModalProps {
+    onClose: () => void;
+}
+
+const Modal = ({ onClose }: ModalProps) => {
+
+    return (
+<>
+	<p>Modal</p>
+</>
+    );
+};
+
+export default Modal;
+
+
+
+nom i @next/bundle-analyzer
+ANALYZE=true nome run build
+
+package.json
+    "@next/bundle-analyzer": "^13.4.7",
+	
+	
+next.config.js
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {}
+
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+    enabled: process.env.ANALYZE === 'true',
+})
+module.exports = withBundleAnalyzer(nextConfig)
