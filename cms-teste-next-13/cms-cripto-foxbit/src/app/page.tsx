@@ -3,25 +3,25 @@
 import { useState, } from 'react'
 import axios from 'axios'
 import error from 'next/error'
-
+import { v4 as uuidv4 } from 'uuid'
 // import sha256 from 'crypto-js/sha256'
 // import hmacSHA512 from 'crypto-js/hmac-sha512'
 // import Base64 from 'crypto-js/enc-base64'
 
 const api = axios.create({
-  baseURL: 'https://api.foxbit.com.br/rest/v3/', // 'https://jsonplaceholder.typicode.com/',
+  baseURL: 'https://api.foxbit.com.br/rest/v3/',
   timeout: 1000 * 30,
-  withCredentials: true,
-  responseType: 'json',
-  headers: {
-    "Cache-Control": "no-cache",
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Origin': '*', //  '*', // 'http://localhost:3000
-    'Access-Control-Allow-Credentials': 'true',
-    'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X-Auth-Token',
-  }
+  // withCredentials: true,
+  // responseType: 'json',
+  // headers: {
+  //   "Cache-Control": "no-cache",
+  //   'Content-Type': 'application/json',
+  //   'Accept': 'application/json',
+  //   'Access-Control-Allow-Origin': '*', //  '*', // 'http://localhost:3000
+  //   // 'Access-Control-Allow-Credentials': 'true',
+  //   // 'Access-Control-Allow-Methods': 'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+  //   // 'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X-Auth-Token',
+  // }
 })
 
 api.interceptors.request.use(config => {
@@ -34,33 +34,39 @@ const Home = () => {
 
   const handleClickTeste01 = async () => {
     try {
+      setData(null)
       console.clear()
-      //console.log('handleClickTeste01')
+      // console.log('handleClickTeste01')
+
+      // ID do usuário                 : 258442
+      // Chave de acesso / Access key  : CpQ15WTQUqyjqVNhj7Kdw5qTQOuWH5godv148hmH
+      // Chave secreta  / Secret key   : Sc2vx7POxqGPlJO6aA7Dg4Yl4TlyBMyDPxOJA6kn
 
       var CryptoJS = require("crypto-js")
-      const apiSecret = '9cgBixe0YpEdKeN41hxPxHYo175nv7jeJ0Ww4NXY' // Chave de acesso // API Key
-      const payload = { method: 'GET', url: '/rest/v3/me', query: '', body: {} }
-      const timestamp = Date.now()
-      const rawBody = JSON.stringify(payload.body)
-      const prehash = `${timestamp}${payload.method}${payload.url}${payload.query}${rawBody}`
-      const signature = CryptoJS.HmacSHA256(prehash, apiSecret).toString()
 
-      api.defaults.headers['cache-control'] = 'no-cache'
-      api.defaults.headers['Accept'] = 'application/json'
-      api.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-      api.defaults.headers['Access-Control-Allow-Origin'] = '*'
-      // api.defaults.headers['Authorization'] = `Bearer ${signature}` `Basic ${signature}` `token ${signature}`
-      api.defaults.headers['X-FB-ACCESS-KEY'] = 'bJCHJTkw23TsNiqMxv3Qbj4fcbhYwIMkfN1v45dJ' //Chave secreta
+      const apiSecret = 'CpQ15WTQUqyjqVNhj7Kdw5qTQOuWH5godv148hmH'; // Chave secreta  / Secret key
+      const payload = { method: 'GET', url: 'trades', query: 'market_symbol=btcbrl' };
+      const timestamp = Date.now();
+      console.error(`timestamp: ${timestamp}`)
+
+
+      const prehash = `${timestamp}${payload.method}${payload.url}${payload.query}`;
+      const signature = CryptoJS.HmacSHA256(prehash, apiSecret).toString();
+
+      // api.defaults.headers['cache-control'] = 'no-cache'
+      // api.defaults.headers['Accept'] = 'application/json'
+      // api.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+      api.defaults.headers['X-Idempotent'] = uuidv4()
+      api.defaults.headers['X-FB-ACCESS-KEY'] = 'CpQ15WTQUqyjqVNhj7Kdw5qTQOuWH5godv148hmH' // Chave de acesso / Access key
       api.defaults.headers['X-FB-ACCESS-TIMESTAMP'] = timestamp
       api.defaults.headers['X-FB-ACCESS-SIGNATURE'] = signature
-      //const headers = { Authorization: `Bearer ${signature}` }
 
-      const response = await api.get('me') //const response = await api.get('https://api.foxbit.com.br/rest/v3/me') //const response = await api.get('me', { headers }) // 'todos/1' / 'currencies' / 'markets' // me
-      console.log(response)
+      const response = await api.get('moedas')
 
+      //console.log(response)
       setData(response.data)
     } catch (error: unknown) {
-      console.log(error)
+      // console.log(error)
       if (axios.isAxiosError(error)) {
         console.error(`ERRO-01: ${error.code} - ${error.message}`)
       } else {
