@@ -111,45 +111,6 @@ while (i < arr.length) {
 console.timeEnd('while')
 
 
-/*
-
-
-length : 10
-while  : 0.089111328125 ms
-for in : 0.10595703125  ms
-forEach: 0.1103515625   ms
-for of : 0.11767578125  ms
-for    : 0.587158203125 ms
-
-length  : 50
-forEach : 0.1240234375 ms
-for     : 0.239013671875 ms
-for of  : 0.240234375 ms
-while   : 0.31298828125 ms
-for in  : 0.4970703125 ms
-
-length  : 100
-forEach : 0.15283203125 ms
-while   : 0.183837890625 ms
-for in  : 0.22509765625 ms
-for     : 0.258056640625 ms
-for of  : 0.310791015625 ms
-
-length  : 1.000
-while   : 1.136962890625 ms
-for in  : 1.87109375 ms
-for     : 2.0771484375 ms
-for of  : 2.218994140625 ms
-forEach : 2.9541015625 ms
-
-length : 100.000
-forEach: 2.544921875 ms
-while  : 32.242919921875 ms
-for of : 35.3330078125 ms
-for    : 48.5 ms
-for in : 52.621826171875 ms
-
-*/
 
 
  {Array.of("Trabalho", "Trabalho", "Estudos").forEach((item) => {
